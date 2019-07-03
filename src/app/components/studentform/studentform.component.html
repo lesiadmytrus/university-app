@@ -1,0 +1,52 @@
+<h2>Fill form to add new students</h2>
+
+<form [formGroup]="profileForm">
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName">
+  </label>
+
+  <label>
+    Last Name
+    <input type="text" formControlName="lastName">
+  </label>
+
+  <label>
+    Age
+    <input type="number" formControlName="age">
+  </label>
+
+  <form>
+      <input type="radio" name="gender" value="male" checked > Male<br>
+      <input type="radio" name="gender" value="female"> Female<br>
+      <input type="radio" name="gender" value="other"> Other 
+  </form>
+
+  <label>l
+      Birthday:
+      <input type="date" formControlName="dayOfBirth">
+  </label>
+
+  <label>
+    Email
+    <input type="email" formControlName="email" required>
+  </label>
+
+  <label>
+    Telephone
+    <input type="tel" formControlName="phoneNumber">
+  </label>
+
+  <label>
+    Country
+    <select formControlName="country">
+        <option value="Lviv">Lviv</option>
+        <option value="Kyiv">Kyiv</option>
+        <option value="Ivano-Frankivsk">Ivano-Frankivsk</option>
+        <option value="Lutsk">Lutsk</option>
+      </select>
+  </label>
+
+  <button type="submit" (click)="add()">Submit</button>
+
+</form>
