@@ -8,7 +8,6 @@ import { STUDENTS } from '../../mock-students';
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit {
-  // students: Student[];
   students = STUDENTS;
   selectedStudent: Student;
 
@@ -19,6 +18,5 @@ export class StudentComponent implements OnInit {
 
   onSelect(student: Student): void {
     this.selectedStudent = student;
-  }
-  
+  }  
 }

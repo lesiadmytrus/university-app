@@ -16,15 +16,15 @@
     <input type="number" formControlName="age">
   </label>
 
-  <form>
-      <input type="radio" name="gender" value="male" checked > Male<br>
-      <input type="radio" name="gender" value="female"> Female<br>
-      <input type="radio" name="gender" value="other"> Other 
-  </form>
+  <div>
+    <input type="radio" value="male" checked > Male
+    <input type="radio" value="female"> Female
+    <input type="radio" value="other"> Other 
+  </div>
 
-  <label>l
-      Birthday:
-      <input type="date" formControlName="dayOfBirth">
+  <label>
+    Birthday:
+    <input type="date" formControlName="dateOfBirth">
   </label>
 
   <label>
@@ -40,13 +40,12 @@
   <label>
     Country
     <select formControlName="country">
-        <option value="Lviv">Lviv</option>
-        <option value="Kyiv">Kyiv</option>
-        <option value="Ivano-Frankivsk">Ivano-Frankivsk</option>
-        <option value="Lutsk">Lutsk</option>
-      </select>
+      <option value="Lviv">Lviv</option>
+      <option value="Kyiv">Kyiv</option>
+      <option value="Ivano-Frankivsk">Ivano-Frankivsk</option>
+      <option value="Lutsk">Lutsk</option>
+    </select>
   </label>
-
+  
   <button type="submit" (click)="add()">Submit</button>
-
 </form>
