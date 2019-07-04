@@ -10,16 +10,16 @@ ul {
     margin-bottom: 10px;
     font-size: 20px;
     cursor: pointer;
-  }
-
-  li:before {
-    margin-right: 10px;
-    content: counter($item);
-    background: lightblue;
-    border-radius: 100%;
-    color: white;
-    width: 25px;
-    text-align: center;
-    display: inline-block;
+    
+      &:before {
+        margin-right: 10px;
+        content: counter($item);
+        background: lightblue;
+        border-radius: 100%;
+        color: white;
+        width: 25px;
+        text-align: center;
+        display: inline-block;
+      }
   }
 }

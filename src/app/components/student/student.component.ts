@@ -19,4 +19,5 @@ export class StudentComponent implements OnInit {
   onSelect(student: Student): void {
     this.selectedStudent = student;
   }  
+
 }

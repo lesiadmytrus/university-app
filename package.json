@@ -21,7 +21,6 @@
     "@angular/router": "~7.2.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
-    "jquery": "^3.4.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
@@ -46,25 +45,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
-  },
-  "build": {
-    "builder": "@angular-devkit/build-angular:browser",
-    "options": {
-      "outputPath": "dist/ng6",
-      "index": "src/index.html",
-      "main": "src/main.ts",
-      "polyfills": "src/polyfills.ts",
-      "tsConfig": "src/tsconfig.app.json",
-      "assets": [
-        "src/favicon.ico",
-        "src/assets"
-      ],
-      "styles": [
-        "src/styles.css","node_modules/bootstrap/dist/css/bootstrap.min.css"
-
-      ],
-      "scripts": ["node_modules/jquery/dist/jquery.min.js",
-                 "node_modules/bootstrap/dist/js/bootstrap.min.js"]
-    }
   }
 }

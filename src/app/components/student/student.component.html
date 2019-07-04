@@ -1,7 +1,7 @@
 <ul>
   <li *ngFor="let student of students"
     (click)="onSelect(student)">
-    <span>{{ student.firstName }}</span>{{ student.lastName }} 
+    <span>{{ student.firstName }} {{ student.lastName }}</span> 
   </li>
 </ul>
 
