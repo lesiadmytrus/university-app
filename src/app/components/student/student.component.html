@@ -1,11 +1,6 @@
-<h2>All students</h2>
-<ol class="list-group list-group-flush">
+<ol>
   <li *ngFor="let student of students"
-    [class.selected]="student === selectedStudent"
-    (click)="onSelect(student)"
-    class="alert alert-primary" role="alert"
-    data-toggle="modal"
-    data-target="#myModal">
+    (click)="onSelect(student)">
     <span class="modal-body">{{ student.firstName }}</span>{{ student.lastName }} 
   </li>
 </ol>

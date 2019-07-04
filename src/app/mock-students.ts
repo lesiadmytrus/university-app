@@ -12,3 +12,4 @@ export const STUDENTS: Student[] = [
     { _id:9, firstName: 'Jedd', lastName: 'Reed', age: 22, dateOfBirth: '1/01/11', email: 'email@gmail.com', phoneNumber: 344434, country: 'Lviv', gender: 'male' },
     { _id:10, firstName: 'Marta', lastName: 'Holt', age: 22, dateOfBirth: '1/01/11', email: 'email@gmail.com', phoneNumber: 344434, country: 'Lviv', gender: 'male'  }
   ];
+  

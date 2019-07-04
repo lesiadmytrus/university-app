@@ -15,7 +15,8 @@ export class StudentformComponent implements OnInit {
     email: new FormControl(''),
     phoneNumber: new FormControl(''),
     country: new FormControl(''),
-    dateOfBirth: new FormControl('')
+    dateOfBirth: new FormControl(''),
+    gender: new FormControl('') 
   });
 
   constructor(private studentService: StudentService) { }
