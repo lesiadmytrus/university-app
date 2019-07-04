@@ -1,8 +1,8 @@
-<ol>
+<ul>
   <li *ngFor="let student of students"
     (click)="onSelect(student)">
-    <span class="modal-body">{{ student.firstName }}</span>{{ student.lastName }} 
+    <span>{{ student.firstName }}</span>{{ student.lastName }} 
   </li>
-</ol>
+</ul>
 
 <app-details [student]="selectedStudent"></app-details>

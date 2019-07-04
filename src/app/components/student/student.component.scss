@@ -1,23 +1,25 @@
-ol {
+$item: item;
+
+ul {
   list-style: none;
-  counter-reset: item;
+  counter-reset: $item;
   padding: 50px;
-}
+  
+  li {
+    counter-increment: $item;
+    margin-bottom: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
 
-li {
-  counter-increment: item;
-  margin-bottom: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-li:before {
-  margin-right: 10px;
-  content: counter(item);
-  background: lightblue;
-  border-radius: 100%;
-  color: white;
-  width: 1.2em;
-  text-align: center;
-  display: inline-block;
+  li:before {
+    margin-right: 10px;
+    content: counter($item);
+    background: lightblue;
+    border-radius: 100%;
+    color: white;
+    width: 25px;
+    text-align: center;
+    display: inline-block;
+  }
 }
