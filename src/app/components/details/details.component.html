@@ -1,0 +1,24 @@
+<div *ngIf="student">
+	<h2>{{ student.firstName | uppercase }} Details</h2>
+	<div>
+		<span>First Name: </span>{{ student.firstName }}
+	</div>
+	<div>
+		<span>Last Name: </span>{{ student.lastName }}
+	</div>
+	<div>
+		<span>Age: </span>{{ student.age }}
+	</div>
+	<div>
+		<span>Birthday: </span>{{ student.dateOfBirth }}
+	</div>
+	<div>
+		<span>Email: </span>{{ student.email }}
+	</div>
+	<div>
+		<span>Telephone: </span>{{ student.phoneNumber }}
+	</div>
+	<div>
+		<span>Country: </span>{{ student.country }}
+	</div>
+</div>
