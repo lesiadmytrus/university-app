@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { StudentService } from 'src/app/student.service';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-student-form',
@@ -29,5 +29,7 @@ export class StudentFormComponent implements OnInit {
     const student = {...this.profileForm.value};
     this.studentService.createStudent(student)
       .subscribe();
+
+    this.profileForm.reset();
   }
 }

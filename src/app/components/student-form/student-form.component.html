@@ -3,54 +3,91 @@
     <div class="form-row">
       <label class="label-text col-5">
         First Name
-        <input type="text" class="form-control input-style" placeholder="First name" formControlName="firstName"
-          required>
+        <input
+          type="text"
+          class="form-control input-style"
+          placeholder="First name"
+          formControlName="firstName"
+        >
       </label>
 
       <label class="label-text col-5">
         Last Name
-        <input type="text" class="form-control input-style" placeholder="First name" formControlName="lastName"
-          required>
+        <input
+          type="text"
+          class="form-control input-style"
+          placeholder="First name"
+          formControlName="lastName"
+        >
       </label>
     </div>
 
     <div class="form-row">
       <label class="label-text col-5">
         Age
-        <input type="number" class="form-control input-style" placeholder="Age" formControlName="age">
+        <input
+          type="number"
+          class="form-control input-style"
+          placeholder="Age"
+          formControlName="age"
+        >
       </label>
 
       <label class="label-text col-5">
         Birthday
-        <input type="date" class="form-control input-style" formControlName="dateOfBirth">
+        <input
+          type="date"
+          class="form-control input-style"
+          formControlName="dateOfBirth"
+        >
       </label>
     </div>
 
     <div class="form-check form-check-inline">
       <label class="form-check-label">
         Male
-        <input class="form-check-input input-style" type="radio" value="male" formControlName="gender">
+        <input
+          class="form-check-input input-style"
+          type="radio"
+          value="male"
+          formControlName="gender"
+        >
       </label>
     </div>
     
     <div class="form-check form-check-inline">
       <label class="form-check-label">
         Female
-        <input class="form-check-input input-style" type="radio" value="female" formControlName="gender">
+        <input
+          class="form-check-input input-style"
+          type="radio"
+          value="female"
+          formControlName="gender"
+        >
       </label>
     </div>
 
     <div class="form-group row">
       <label class="label-text col-10">
         Email
-        <input type="email" class="form-control input-style" placeholder="Email" formControlName="email" required>
+        <input
+          type="email"
+          class="form-control input-style"
+          placeholder="example@gmail.com"
+          formControlName="email"
+        >
       </label>
     </div>
 
     <div class="form-group row">
       <label class="label-text col-10">
         Phone number
-        <input type="tel" class="form-control input-style" placeholder="Phone number" formControlName="phoneNumber">
+        <input
+          type="tel"
+          class="form-control input-style"
+          placeholder="+38(063) 536 222 3"
+          formControlName="phoneNumber"
+        >
       </label>
     </div>
 
@@ -58,14 +95,23 @@
       <div class="col-md-10">
         <label class="label-text">Country</label>
         <select class="custom-select" formControlName="countryControl">
-          <option *ngFor="let country of countries" [value]="country">{{ country }}
+          <option
+            *ngFor="let country of countries"
+            [value]="country"
+          >
+            {{ country }}
           </option>
         </select>
       </div>
     </div>
 
-    <button class="submit-button btn btn-dark btn-lg" type="submit" [disabled]="!profileForm.valid"
-      (click)="add()">Submit
+    <button 
+      class="submit-button btn btn-dark btn-lg"
+      type="submit"
+      [disabled]="!profileForm.valid"
+      (click)="add()"
+    >
+      Submit
     </button>
   </div>
 </form>

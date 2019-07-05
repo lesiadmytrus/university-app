@@ -3,7 +3,7 @@ export class Student {
     public firstName: string;
     public lastName: string;
     public age: number;
-    public email: string | number;
+    public email: string;
     public phoneNumber: number;
     public country: string;
     public gender: string;
