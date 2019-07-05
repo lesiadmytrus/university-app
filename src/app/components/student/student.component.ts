@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from 'src/app/models/student.model';
-import { STUDENTS } from '../../mock-students';
 import { StudentService } from 'src/app/services/student.service';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-student',
@@ -25,6 +23,8 @@ export class StudentComponent implements OnInit {
 
   getStudents(): void {
     this.studentService.getAll()
-      .subscribe(students => this.students = students);
+      .subscribe(students => {
+        this.students = students;
+    });
   }
 }
