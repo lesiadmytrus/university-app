@@ -9,6 +9,15 @@
     "deprecation": {
       "severity": "warn"
     },
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
+    },
+    "ban-types": [true, ["object", "Use Object instead."], ["String"]],
     "import-blacklist": [
       true,
       "rxjs/Rx"

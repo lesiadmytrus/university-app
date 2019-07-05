@@ -12,4 +12,8 @@ export class StudentService {
   public createStudent(student: Student): Observable<Object> {
     return this.http.post(this.apiURL, student);
   }
+
+  public getAll(): Observable<Student[]> {
+    return this.http.get<Student[]>(this.apiURL);
+  }
 }

@@ -15,7 +15,7 @@ export class StudentFormComponent implements OnInit {
     age: new FormControl(''),
     email: new FormControl('', Validators.required),
     phoneNumber: new FormControl(''),
-    countryControl: new FormControl('Canada'),
+    country: new FormControl(this.countries[3]),
     dateOfBirth: new FormControl(''),
     gender: new FormControl('')
   });
