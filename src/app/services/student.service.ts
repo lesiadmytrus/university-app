@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Student } from '../models/student.model';
 
+
 @Injectable({ providedIn: 'root' })
 export class StudentService {
-  private apiURL = 'http://localhost:3000/api/students';
+  private readonly apiURL = 'http://localhost:3000/api/students';
 
   constructor(private http: HttpClient) {}
 
