@@ -53,13 +53,13 @@ export class StudentFormComponent implements OnInit {
     this.studentService.createStudent(student)
       .subscribe();
 
-    this.router.navigate(['/student']);
+    this.router.navigate(['/students']);
   }
 
   update(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.update(student).subscribe(res => {
-      this.router.navigate(['/student']);
+      this.router.navigate(['/students']);
     });
   }
 
