@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Student } from '../models/student.model';
 
+
 @Injectable({ providedIn: 'root' })
 export class StudentService {
-  private apiURL = 'http://localhost:3000/api/students';
+  private readonly apiURL = 'http://localhost:3000/api/students';
 
   constructor(private http: HttpClient) {}
 
@@ -15,5 +16,13 @@ export class StudentService {
 
   public getAll(): Observable<Student[]> {
     return this.http.get<Student[]>(this.apiURL);
+  }
+
+  public getById(id: string): Observable<Student> {
+    return this.http.get<Student>(`${this.apiURL}/${id}`);
+  }
+
+  public update(student: Student): Observable<Object> {
+    return this.http.put(`${this.apiURL}/${student._id}`, student);
   }
 }

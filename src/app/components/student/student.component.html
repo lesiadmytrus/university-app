@@ -1,8 +1,22 @@
 <ul>
-  <li *ngFor="let student of students"
+  <li *ngFor="let student of students; let i=index"
     (click)="onSelect(student)"
   >
-    <span>{{ student.firstName }} {{ student.lastName }}</span> 
+    <div>
+      <span class="numerical-list">
+        {{ i + 1 }}
+      </span>
+
+      <span 
+        class="student-name">
+        {{ student.firstName | titlecase }}
+        {{ student.lastName | titlecase }}
+      </span>
+    </div>
+    <button
+      class="edit btn btn-outline-dark btn-xs" 
+      (click)="edit(student._id)"
+    >Edit</button>
   </li>
 </ul>
 

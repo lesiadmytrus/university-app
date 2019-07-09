@@ -1,4 +1,7 @@
-<form [formGroup]="profileForm">
+<form
+  [formGroup]="profileForm"
+  (ngSubmit)="isEdit ? update(profileForm) : add(profileForm)"
+>
   <div class="container">
     <div class="form-row">
       <label class="label-text col-5">
@@ -105,13 +108,12 @@
       </div>
     </div>
 
-    <button 
+    <button
       class="submit-button btn btn-dark btn-lg"
       type="submit"
       [disabled]="!profileForm.valid"
-      (click)="add()"
     >
-      Submit
+      {{ isEdit ? 'Update' : 'Submit'}}
     </button>
   </div>
 </form>
