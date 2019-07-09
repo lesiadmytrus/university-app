@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Student } from 'src/app/models/student.model';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-form',
@@ -10,6 +13,7 @@ import { StudentService } from 'src/app/services/student.service';
 export class StudentFormComponent implements OnInit {
   countries = ['USA', 'Canada', 'Uk', 'Australia', 'Costa Rica'];
   profileForm = new FormGroup({
+    _id: new FormControl(''),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     age: new FormControl(''),
@@ -20,16 +24,48 @@ export class StudentFormComponent implements OnInit {
     gender: new FormControl('')
   });
 
-  constructor(private studentService: StudentService) { }
+  public isEdit: boolean;
+
+  constructor(
+    private studentService: StudentService,
+    private route: ActivatedRoute,
+    private router: Router
+    ) {
+      this.route.params.subscribe(params => {
+        const studentId = params['id'];
+        if (studentId) {
+          this.getStudent(studentId);
+        }
+      });
+
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe((event: NavigationEnd) => {
+        this.isEdit = event.url.indexOf('edit') !== -1;
+      });
+    }
 
   ngOnInit() {
   }
 
-  add() {
-    const student = {...this.profileForm.value};
+  add(form: FormGroup): void {
+    const student: Student = {...form.value};
     this.studentService.createStudent(student)
       .subscribe();
 
-    this.profileForm.reset();
+    this.router.navigate(['/student']);
+  }
+
+  update(form: FormGroup): void {
+    const student: Student = {...form.value};
+    this.studentService.update(student).subscribe(res => {
+      this.router.navigate(['/student']);
+    });
+  }
+
+  getStudent(studentId: string): void {
+    this.studentService.getById(studentId).subscribe((student: Student) => {
+      this.profileForm.patchValue({...student});
+    });
   }
 }

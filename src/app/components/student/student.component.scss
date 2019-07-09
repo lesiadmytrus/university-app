@@ -1,25 +1,28 @@
-$item: item;
-
 ul {
   list-style: none;
-  counter-reset: $item;
   padding: 50px;
   
   li {
-    counter-increment: $item;
     margin-bottom: 10px;
     font-size: 20px;
     cursor: pointer;
-    
-      &:before {
-        margin-right: 10px;
-        content: counter($item);
-        background: lightblue;
-        border-radius: 100%;
-        color: white;
-        width: 25px;
-        text-align: center;
-        display: inline-block;
-      }
+    display: flex;
+    justify-content: space-between; 
+    width: 20%;
+
+    .edit {
+      border: none;
+      background-color: rgb(139, 196, 241);
+      color: white;
+      font-size: 14px;
+    }
+
+    .numerical-list {
+      display: inline-block;
+      margin-right: 10px;
+      color: rgb(2, 15, 134);
+      text-align: right;
+      width: 20px;
+    } 
   }
 }

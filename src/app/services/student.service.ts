@@ -16,4 +16,12 @@ export class StudentService {
   public getAll(): Observable<Student[]> {
     return this.http.get<Student[]>(this.apiURL);
   }
+
+  public getById(id: string): Observable<Student> {
+    return this.http.get<Student>(`${this.apiURL}/${id}`);
+  }
+
+  public update(student: Student): Observable<Object> {
+    return this.http.put(`${this.apiURL}/${student._id}`, student);
+  }
 }
