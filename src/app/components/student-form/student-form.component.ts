@@ -31,19 +31,19 @@ export class StudentFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
     ) {
-      this.route.params.subscribe(params => {
-        const studentId = params['id'];
-        if (studentId) {
-          this.getStudent(studentId);
-        }
-      });
+        this.route.params.subscribe(params => {
+          const studentId = params['id'];
+          if (studentId) {
+            this.getStudent(studentId);
+          }
+        });
 
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe((event: NavigationEnd) => {
-        this.isEdit = event.url.indexOf('edit') !== -1;
-      });
-    }
+        this.router.events.pipe(
+          filter(event => event instanceof NavigationEnd)
+        ).subscribe((event: NavigationEnd) => {
+          this.isEdit = event.url.indexOf('edit') !== -1;
+        });
+      }
 
   ngOnInit() {
   }
@@ -51,9 +51,9 @@ export class StudentFormComponent implements OnInit {
   add(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.createStudent(student)
-      .subscribe();
-
-    this.router.navigate(['/students']);
+      .subscribe(res => {
+        this.router.navigate(['/students']);
+      });
   }
 
   update(form: FormGroup): void {
