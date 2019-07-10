@@ -16,12 +16,12 @@
       <button
         class="edit-btn btn btn-outline-dark"
         (click)="edit(student._id)"
-      >Edit
+      ><fa name="pencil-square-o fa-2x"></fa>
       </button>
       <button
         class="delete-btn btn btn-outline-dark"
-        (click)="openConfirmationModal(template, student._id)"
-      >Delete
+        (click)="openConfirmationModal(template, student._id)">
+          <fa name="trash-o fa-2x"></fa>
       </button>
     </div>
   </li>
@@ -34,13 +34,13 @@
       type="button"
       class="btn btn-default"
       (click)="confirmDeletion()"
-      >Yes
+    ><fa name="check-square-o fa-3x"></fa>
     </button>
     <button
       type="button"
-      class="btn btn-primary"
+      class="btn btn-default"
       (click)="dismissModal()"
-      >No
+      ><fa name="minus-square-o fa-3x" class="minus-square-o"></fa>
     </button>
   </div>
 </ng-template>
