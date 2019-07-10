@@ -1,5 +1,5 @@
 export class Student {
-    public _id: number;
+    public _id: string;
     public firstName: string;
     public lastName: string;
     public age: number;
