@@ -21,7 +21,7 @@ export class StudentComponent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private modalService: BsModalService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.getStudents();
@@ -32,10 +32,9 @@ export class StudentComponent implements OnInit {
   }
 
   getStudents(): void {
-    this.studentService.getAll()
-      .subscribe(students => {
-        this.students = students;
-      });
+    this.studentService.getAll().subscribe(students => {
+      this.students = students;
+    });
   }
 
   edit(studentId: string): void {
@@ -44,16 +43,14 @@ export class StudentComponent implements OnInit {
 
   openConfirmationModal(template: TemplateRef<any>, id: string): void {
     this.idForDeletion = id;
-    this.modalRef = this.modalService
-      .show(template, {class: 'modal-sm', backdrop: 'static'});
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm', backdrop: 'static'});
   }
 
   confirmDeletion(): void {
-    this.studentService.delete(this.idForDeletion)
-      .subscribe(() => {
-        this.students.splice(this.students.findIndex(student => student._id === this.idForDeletion), 1);
-        this.dismissModal();
-      });
+    this.studentService.delete(this.idForDeletion).subscribe(() => {
+      this.students.splice(this.students.findIndex(student => student._id === this.idForDeletion), 1);
+      this.dismissModal();
+    });
   }
 
   dismissModal(): void {

@@ -11,6 +11,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
+  public isEdit: boolean;
   countries = ['USA', 'Canada', 'Uk', 'Australia', 'Costa Rica'];
   profileForm = new FormGroup({
     _id: new FormControl(''),
@@ -24,41 +25,37 @@ export class StudentFormComponent implements OnInit {
     gender: new FormControl('')
   });
 
-  public isEdit: boolean;
-
   constructor(
     private studentService: StudentService,
     private route: ActivatedRoute,
     private router: Router
-    ) {
-        this.route.params.subscribe(params => {
-          const studentId = params['id'];
-          if (studentId) {
-            this.getStudent(studentId);
-          }
-        });
-
-        this.router.events.pipe(
-          filter(event => event instanceof NavigationEnd)
-        ).subscribe((event: NavigationEnd) => {
-          this.isEdit = event.url.indexOf('edit') !== -1;
-        });
+  ) {
+    this.route.params.subscribe(params => {
+      const studentId = params['id'];
+      if (studentId) {
+        this.getStudent(studentId);
       }
+    });
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      this.isEdit = event.url.indexOf('edit') !== -1;
+    });
+  }
 
   ngOnInit() {
   }
 
   add(form: FormGroup): void {
     const student: Student = {...form.value};
-    this.studentService.createStudent(student)
-      .subscribe(res => {
-        this.router.navigate(['/students']);
-      });
+    this.studentService.createStudent(student).subscribe(res => {
+      this.router.navigate(['/students']);
+    });
   }
 
   update(form: FormGroup): void {
     const student: Student = {...form.value};
-    this.studentService.update(student).subscribe(res => {
+    this.studentService.update(student).subscribe(res => {     
       this.router.navigate(['/students']);
     });
   }
