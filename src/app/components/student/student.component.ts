@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef  } from '@angular/core';
 import { Student } from 'src/app/models/student.model';
 import { StudentService } from 'src/app/services/student.service';
 import { Router } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-student',
@@ -10,13 +12,15 @@ import { Router } from '@angular/router';
 })
 export class StudentComponent implements OnInit {
   students: Student[] = [];
-  student = Student;
   selectedStudent: Student;
+  modalRef: BsModalRef;
+  deleteStudentId: string;
 
   constructor(
     private studentService: StudentService,
-    private router: Router
-    ) { }
+    private router: Router,
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit() {
     this.getStudents();
@@ -27,13 +31,28 @@ export class StudentComponent implements OnInit {
   }
 
   getStudents(): void {
-    this.studentService.getAll()
-      .subscribe(students => {
-        this.students = students;
+    this.studentService.getAll().subscribe(students => {
+      this.students = students;
     });
   }
 
   edit(studentId: string): void {
     this.router.navigate([`/students/${studentId}/edit`]);
+  }
+
+  openConfirmationModal(template: TemplateRef<any>, id: string): void {
+    this.deleteStudentId = id;
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm', backdrop: 'static'});
+  }
+
+  confirmDeletion(): void {
+    this.studentService.delete(this.deleteStudentId).subscribe(() => {
+      this.students.splice(this.students.findIndex(student => student._id === this.deleteStudentId), 1);
+      this.dismissModal();
+    });
+  }
+
+  dismissModal(): void {
+    this.modalRef.hide();
   }
 }

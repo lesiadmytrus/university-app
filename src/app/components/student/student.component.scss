@@ -10,19 +10,17 @@ ul {
     justify-content: space-between; 
     width: 20%;
 
-    .edit {
-      border: none;
-      background-color: #8bc4f1;
-      color: #ffffff;
-      font-size: 14px;
-    }
-
     .numerical-list {
       display: inline-block;
       margin-right: 10px;
       color: #020f86;
       text-align: right;
       width: 20px;
-    } 
+    }
+
+    .delete-btn,
+    .edit-btn {
+      margin-right: 10px;
+    }
   }
 }
