@@ -56,7 +56,7 @@ export class StudentFormComponent implements OnInit {
 
   update(form: FormGroup): void {
     const student: Student = {...form.value};
-    this.studentService.update(student).subscribe(res => {     
+    this.studentService.update(student).subscribe(res => {
       this.router.navigate(['/students']);
     });
   }
