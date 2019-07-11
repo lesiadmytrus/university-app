@@ -4,7 +4,6 @@
       <span class="numerical-list">
         {{ i + 1 }}
       </span>
-
       <span 
         (click)="onSelect(student)"
         class="student-name">
@@ -14,14 +13,16 @@
     </div>
     <div>
       <button
-        class="edit-btn btn btn-outline-dark"
+        class="edit-btn btn btn-outline-primary"
         (click)="edit(student._id)"
-      ><fa name="pencil-square-o fa-2x"></fa>
+      >
+        <i class="fa fa-pencil"></i>
       </button>
       <button
-        class="delete-btn btn btn-outline-dark"
-        (click)="openConfirmationModal(template, student._id)">
-          <fa name="trash-o fa-2x"></fa>
+        class="delete-btn btn btn-outline-danger"
+        (click)="openConfirmationModal(template, student._id)"
+      >
+        <i class="fa fa-trash-o"></i>
       </button>
     </div>
   </li>
@@ -34,13 +35,13 @@
       type="button"
       class="btn btn-default"
       (click)="confirmDeletion()"
-    ><fa name="check-square-o fa-3x"></fa>
+    >Yes
     </button>
     <button
       type="button"
-      class="btn btn-default"
+      class="btn btn-secondary"
       (click)="dismissModal()"
-      ><fa name="minus-square-o fa-3x" class="minus-square-o"></fa>
+      >No
     </button>
   </div>
 </ng-template>

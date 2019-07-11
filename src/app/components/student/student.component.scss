@@ -4,7 +4,7 @@ ul {
   
   li {
     margin-bottom: 10px;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     justify-content: space-between; 
@@ -18,9 +18,9 @@ ul {
       width: 20px;
     }
 
-    .delete-btn, .edit-btn {
+    .delete-btn,
+    .edit-btn {
       margin-right: 10px;
-      border: none;
     }
   }
 }
