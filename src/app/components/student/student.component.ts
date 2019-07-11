@@ -12,10 +12,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class StudentComponent implements OnInit {
   students: Student[] = [];
-  student = Student;
   selectedStudent: Student;
   modalRef: BsModalRef;
-  idForDeletion: string;
+  deleteStudentId: string;
 
   constructor(
     private studentService: StudentService,
@@ -42,13 +41,13 @@ export class StudentComponent implements OnInit {
   }
 
   openConfirmationModal(template: TemplateRef<any>, id: string): void {
-    this.idForDeletion = id;
+    this.deleteStudentId = id;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm', backdrop: 'static'});
   }
 
   confirmDeletion(): void {
-    this.studentService.delete(this.idForDeletion).subscribe(() => {
-      this.students.splice(this.students.findIndex(student => student._id === this.idForDeletion), 1);
+    this.studentService.delete(this.deleteStudentId).subscribe(() => {
+      this.students.splice(this.students.findIndex(student => student._id === this.deleteStudentId), 1);
       this.dismissModal();
     });
   }

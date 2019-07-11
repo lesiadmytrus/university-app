@@ -38,7 +38,8 @@ export class StudentFormComponent implements OnInit {
     });
 
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
       this.isEdit = event.url.indexOf('edit') !== -1;
     });
   }
