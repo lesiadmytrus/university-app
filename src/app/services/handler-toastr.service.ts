@@ -6,21 +6,21 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HandlerToastrService {
 
-  constructor(private toaster: ToastrService) { }
+  constructor(private toastrService: ToastrService) { }
 
-  handlerSuccess(message: string) {
+  public handlerSuccess(message: string) {
     if (message) {
-      this.toaster.success(message);
+      this.toastrService.success(message);
     } else {
-      this.toaster.success('Successfully!');
+      this.toastrService.success('Your request was successful!');
     }
   }
 
-  handlerError(error: { message: string }) {
+  public handlerError(error: { message: string }) {
     if (error && error.message) {
-      this.toaster.error(error.message);
+      this.toastrService.error(error.message);
     } else {
-      this.toaster.error('Error!');
+      this.toastrService.error('Something went wrong! Please try again later');
     }
   }
 }

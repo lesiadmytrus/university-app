@@ -30,7 +30,7 @@ export class StudentFormComponent implements OnInit {
     private studentService: StudentService,
     private route: ActivatedRoute,
     private router: Router,
-    private handlerToaster: HandlerToastrService
+    private handlerToastrService: HandlerToastrService
   ) {
     this.route.params.subscribe(params => {
       const studentId = params['id'];
@@ -52,20 +52,20 @@ export class StudentFormComponent implements OnInit {
   add(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.createStudent(student).subscribe(res => {
-      this.handlerToaster.handlerSuccess(res['message']);
+      this.handlerToastrService.handlerSuccess(res['message']);
       this.router.navigate(['/students']);
     }, error => {
-      this.handlerToaster.handlerError(error.error);
+      this.handlerToastrService.handlerError(error.error);
     });
   }
 
   update(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.update(student).subscribe(res => {
-      this.handlerToaster.handlerSuccess(res['message']);
+      this.handlerToastrService.handlerSuccess(res['message']);
       this.router.navigate(['/students']);
     }, error => {
-      this.handlerToaster.handlerError(error.error);
+      this.handlerToastrService.handlerError(error.error);
     });
   }
 

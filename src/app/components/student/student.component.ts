@@ -21,7 +21,7 @@ export class StudentComponent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private modalService: BsModalService,
-    private handlerToaster: HandlerToastrService
+    private handlerToastrService: HandlerToastrService
   ) { }
 
   ngOnInit() {
@@ -49,11 +49,11 @@ export class StudentComponent implements OnInit {
 
   confirmDeletion(): void {
     this.studentService.delete(this.deleteStudentId).subscribe(res => {
-      this.handlerToaster.handlerSuccess(res['message']);
+      this.handlerToastrService.handlerSuccess(res['message']);
       this.students.splice(this.students.findIndex(student => student._id === this.deleteStudentId), 1);
       this.dismissModal();
     }, error => {
-      this.handlerToaster.handlerError(error.error);
+      this.handlerToastrService.handlerError(error.error);
     });
   }
 
