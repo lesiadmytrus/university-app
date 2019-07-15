@@ -4,7 +4,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { filter } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import { HandlerToastrService } from '../../services/handler-toastr.service';
 
 @Component({
   selector: 'app-student-form',
@@ -30,7 +30,7 @@ export class StudentFormComponent implements OnInit {
     private studentService: StudentService,
     private route: ActivatedRoute,
     private router: Router,
-    private toaster: ToastrService
+    private handlerToaster: HandlerToastrService
   ) {
     this.route.params.subscribe(params => {
       const studentId = params['id'];
@@ -52,16 +52,20 @@ export class StudentFormComponent implements OnInit {
   add(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.createStudent(student).subscribe(res => {
-      this.toaster.success(res['message']);
+      this.handlerToaster.handlerSuccess(res['message']);
       this.router.navigate(['/students']);
+    }, error => {
+      this.handlerToaster.handlerError(error.error);
     });
   }
 
   update(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.update(student).subscribe(res => {
-      this.toaster.success(res['message']);
+      this.handlerToaster.handlerSuccess(res['message']);
       this.router.navigate(['/students']);
+    }, error => {
+      this.handlerToaster.handlerError(error.error);
     });
   }
 

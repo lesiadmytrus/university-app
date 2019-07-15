@@ -4,7 +4,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { ToastrService } from 'ngx-toastr';
+import { HandlerToastrService } from '../../services/handler-toastr.service';
 
 @Component({
   selector: 'app-student',
@@ -21,7 +21,7 @@ export class StudentComponent implements OnInit {
     private studentService: StudentService,
     private router: Router,
     private modalService: BsModalService,
-    private toaster: ToastrService
+    private handlerToaster: HandlerToastrService
   ) { }
 
   ngOnInit() {
@@ -49,9 +49,11 @@ export class StudentComponent implements OnInit {
 
   confirmDeletion(): void {
     this.studentService.delete(this.deleteStudentId).subscribe(res => {
-      this.toaster.success(res['message']);
+      this.handlerToaster.handlerSuccess(res['message']);
       this.students.splice(this.students.findIndex(student => student._id === this.deleteStudentId), 1);
       this.dismissModal();
+    }, error => {
+      this.handlerToaster.handlerError(error.error);
     });
   }
 
