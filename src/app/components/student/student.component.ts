@@ -4,6 +4,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-student',
@@ -19,7 +20,8 @@ export class StudentComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private router: Router,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private messagesService: MessagesService
   ) { }
 
   ngOnInit() {
@@ -46,9 +48,12 @@ export class StudentComponent implements OnInit {
   }
 
   confirmDeletion(): void {
-    this.studentService.delete(this.deleteStudentId).subscribe(() => {
+    this.studentService.delete(this.deleteStudentId).subscribe(res => {
+      this.messagesService.handlerSuccess(res['message']);
       this.students.splice(this.students.findIndex(student => student._id === this.deleteStudentId), 1);
       this.dismissModal();
+    }, error => {
+      this.messagesService.handlerError(error.error);
     });
   }
 

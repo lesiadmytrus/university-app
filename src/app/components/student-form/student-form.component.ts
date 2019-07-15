@@ -4,6 +4,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { filter } from 'rxjs/operators';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-student-form',
@@ -28,7 +29,8 @@ export class StudentFormComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private messagesService: MessagesService
   ) {
     this.route.params.subscribe(params => {
       const studentId = params['id'];
@@ -50,14 +52,20 @@ export class StudentFormComponent implements OnInit {
   add(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.createStudent(student).subscribe(res => {
+      this.messagesService.handlerSuccess(res['message']);
       this.router.navigate(['/students']);
+    }, error => {
+      this.messagesService.handlerError(error.error);
     });
   }
 
   update(form: FormGroup): void {
     const student: Student = {...form.value};
     this.studentService.update(student).subscribe(res => {
+      this.messagesService.handlerSuccess(res['message']);
       this.router.navigate(['/students']);
+    }, error => {
+      this.messagesService.handlerError(error.error);
     });
   }
 

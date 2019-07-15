@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     ReactiveFormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
