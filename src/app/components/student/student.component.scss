@@ -1,26 +1,33 @@
-ul {
-  list-style: none;
-  padding: 50px;
-  
-  li {
-    margin-bottom: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between; 
-    width: 20%;
+h2 {
+  text-align: center;
+  margin: 1rem 0;
+}
 
-    .numerical-list {
-      display: inline-block;
-      margin-right: 10px;
-      color: #020f86;
-      text-align: right;
-      width: 20px;
-    }
+.students-table {
+  border-collapse: collapse;
+  width: 95%;
+  margin: 0px auto;
 
-    .delete-btn,
-    .edit-btn {
-      margin-right: 10px;
-    }
+  .edit-btn,
+  .delete-btn {
+    margin: 3px;
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:#e6e6e6;
+    color: #131212;
+    text-align: center;
+  }
+
+  td,
+  th {
+    border: 1px solid #ddd;
+  }
+
+  tr:nth-last-child(2n) {
+    background-color: #f9f9f9;
   }
 }
