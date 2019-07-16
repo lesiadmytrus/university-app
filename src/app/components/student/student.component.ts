@@ -16,7 +16,7 @@ export class StudentComponent implements OnInit {
   modalRef: BsModalRef;
   deleteStudentId: string;
 
-  headElements = ['№', 'First Name', 'Last Name', 'Age', 'Birthday', 'Gender', 'Email', 'Phonenumber', 'Country', 'Actions'];
+  headElements = ['№', 'First Name', 'Last Name', 'Age', 'Birthday', 'Gender', 'Email', 'Phone Number', 'Country', 'Actions'];
 
   constructor(
     private studentService: StudentService,
