@@ -13,9 +13,10 @@ import { MessagesService } from '../../services/messages.service';
 })
 export class StudentComponent implements OnInit {
   students: Student[] = [];
-  selectedStudent: Student;
   modalRef: BsModalRef;
   deleteStudentId: string;
+
+  headElements = ['№', 'First Name', 'Last Name', 'Age', 'Birthday', 'Gender', 'Email', 'Phone Number', 'Country', 'Actions'];
 
   constructor(
     private studentService: StudentService,
@@ -26,10 +27,6 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
     this.getStudents();
-  }
-
-  onSelect(student: Student): void {
-    this.selectedStudent = student;
   }
 
   getStudents(): void {

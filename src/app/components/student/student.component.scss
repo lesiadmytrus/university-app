@@ -1,26 +1,43 @@
-ul {
-  list-style: none;
-  padding: 50px;
-  
-  li {
-    margin-bottom: 10px;
-    font-size: 20px;
-    cursor: pointer;
+$color-light-silver: #e6e6e6;
+$color-black: #000;
+
+h2 {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.students-table {
+  width: 100%;
+
+  th {
+    padding: .6rem 0;
+    background-color: $color-light-silver;
+    color: $color-black;
+    text-align: center;
+  }
+
+  td,
+  th {
+    border: 1px solid #ddd;
+  }
+
+  tr:nth-last-child(2n) {
+    background-color: #f9f9f9;
+  }
+
+  td {
+    padding: .5rem;
+  }
+
+  .btn-container {
     display: flex;
-    justify-content: space-between; 
-    width: 20%;
+    justify-content: space-evenly;
+  }
 
-    .numerical-list {
-      display: inline-block;
-      margin-right: 10px;
-      color: #020f86;
-      text-align: right;
-      width: 20px;
-    }
-
-    .delete-btn,
-    .edit-btn {
-      margin-right: 10px;
-    }
+  .numeration-list {
+    text-align: center;
+    background-color: $color-light-silver;
+    color: $color-black;
+    font-weight: bold;
   }
 }
