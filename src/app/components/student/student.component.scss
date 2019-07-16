@@ -1,9 +1,8 @@
-$silver-color: #e6e6e6;
-$text-center: center;
-$text-color: #131212;
+$color-light-silver: #e6e6e6;
+$color-black: #000;
 
 h2 {
-  text-align: $text-center;
+  text-align: center;
   margin: 1rem 0;
 }
 
@@ -12,9 +11,9 @@ h2 {
 
   th {
     padding: .6rem 0;
-    background-color: $silver-color;
-    color: $text-color;
-    text-align: $text-center;
+    background-color: $color-light-silver;
+    color: $color-black;
+    text-align: center;
   }
 
   td,
@@ -27,7 +26,7 @@ h2 {
   }
 
   td {
-    padding: .5rem .5rem;
+    padding: .5rem;
   }
 
   .btn-container {
@@ -36,9 +35,9 @@ h2 {
   }
 
   .numeration-list {
-    text-align: $text-center;
-    background-color: $silver-color;
-    color: $text-color;
+    text-align: center;
+    background-color: $color-light-silver;
+    color: $color-black;
     font-weight: bold;
   }
 }
