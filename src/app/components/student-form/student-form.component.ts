@@ -14,11 +14,12 @@ import { MessagesService } from '../../services/messages.service';
 export class StudentFormComponent implements OnInit {
   public isEdit: boolean;
   countries = ['USA', 'Canada', 'Uk', 'Australia', 'Costa Rica'];
+  public emailValidators = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,10}$';
   profileForm = new FormGroup({
     _id: new FormControl(''),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailValidators)]),
     phoneNumber: new FormControl('', Validators.required),
     country: new FormControl(this.countries[3], Validators.required),
     dateOfBirth: new FormControl('', Validators.required),
