@@ -1,11 +1,4 @@
 {
-  "extends": "tslint:recommended",
-  "linterOptions": {
-    "exclude": [
-      "*.json",
-      "**/*.json"
-    ]
-  },
   "rulesDirectory": [
     "codelyzer"
   ],
