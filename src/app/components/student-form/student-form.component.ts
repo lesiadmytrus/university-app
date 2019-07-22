@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { filter } from 'rxjs/operators';
 import { MessagesService } from '../../services/messages.service';
-import nations from '../../countries.json';
+import countries from '../../countries.json';
 
 @Component({
   selector: 'app-student-form',
@@ -13,17 +13,14 @@ import nations from '../../countries.json';
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
-  bsValue = new Date();
-  bsRangeValue: Date[];
-  maxDate = new Date();
 
   public isEdit: boolean;
 
-  public countries = nations.countries;
+  public countries = countries.data;
   public countryDefault = null;
 
-  public emailValidators = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,10}$';
-  public phoneValidators = '^\\+[0-9-\\ ]+$';
+  private emailValidators = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,10}$';
+  private phoneValidators = '^\\+[0-9-\\ ]+$';
 
   profileForm = new FormGroup({
     _id: new FormControl(''),
@@ -42,10 +39,6 @@ export class StudentFormComponent implements OnInit {
     private router: Router,
     private messagesService: MessagesService
   ) {
-    this.maxDate.setDate(this.maxDate.getDate() + 7);
-    this.bsRangeValue = [this.bsValue, this.maxDate];
-
-
     this.route.params.subscribe(params => {
       const studentId = params['id'];
       if (studentId) {
@@ -65,7 +58,7 @@ export class StudentFormComponent implements OnInit {
 
   add(form: FormGroup): void {
     if (!form.value.gender) {
-      this.messagesService.handlerWarning();
+      this.messagesService.handlerWarning(`Please fill 'Gender' field`);
       return;
     }
 

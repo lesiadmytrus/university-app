@@ -24,7 +24,7 @@ export class MessagesService {
     }
   }
 
-  public handlerWarning() {
-      this.toastrService.warning(`Please fill 'Gender' filed`);
+  public handlerWarning(message) {
+      this.toastrService.warning(message);
   }
 }
