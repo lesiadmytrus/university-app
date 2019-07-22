@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { filter } from 'rxjs/operators';
 import { MessagesService } from '../../services/messages.service';
+import nations from '../../countries.json';
 
 @Component({
   selector: 'app-student-form',
@@ -12,18 +13,27 @@ import { MessagesService } from '../../services/messages.service';
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
+  bsValue = new Date();
+  bsRangeValue: Date[];
+  maxDate = new Date();
+
   public isEdit: boolean;
-  countries = ['USA', 'Canada', 'Uk', 'Australia', 'Costa Rica'];
+
+  public countries = nations.countries;
+  public countryDefault = null;
+
   public emailValidators = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,10}$';
+  public phoneValidators = '^\\+[0-9-\\ ]+$';
+
   profileForm = new FormGroup({
     _id: new FormControl(''),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.pattern(this.emailValidators)]),
-    phoneNumber: new FormControl('', Validators.required),
-    country: new FormControl(this.countries[3], Validators.required),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern(this.phoneValidators)]),
+    country: new FormControl(this.countryDefault, Validators.required),
     dateOfBirth: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required)
+    gender: new FormControl('')
   });
 
   constructor(
@@ -32,6 +42,10 @@ export class StudentFormComponent implements OnInit {
     private router: Router,
     private messagesService: MessagesService
   ) {
+    this.maxDate.setDate(this.maxDate.getDate() + 7);
+    this.bsRangeValue = [this.bsValue, this.maxDate];
+
+
     this.route.params.subscribe(params => {
       const studentId = params['id'];
       if (studentId) {
@@ -50,6 +64,11 @@ export class StudentFormComponent implements OnInit {
   }
 
   add(form: FormGroup): void {
+    if (!form.value.gender) {
+      this.messagesService.handlerWarning();
+      return;
+    }
+
     const student: Student = {...form.value};
     this.studentService.createStudent(student).subscribe(res => {
       this.messagesService.handlerSuccess(res['message']);

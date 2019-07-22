@@ -1,109 +1,112 @@
-<form
-  [formGroup]="profileForm"
-  (ngSubmit)="isEdit ? update(profileForm) : add(profileForm)"
->
-  <div class="container">
-    <div class="form-row">
-      <label class="label-text col-5">
-        First Name
-        <input
-          type="text"
-          class="form-control input-style"
-          placeholder="First name"
-          formControlName="firstName"
-        >
-      </label>
+<div class="container py-3">
+  <div class="mx-auto col-sm-10">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="mb-0">Create new student</h4>
+      </div>
+      <div class="card-body">
+        <form autocomplete="off" [formGroup]="profileForm" (ngSubmit)="isEdit ? update(profileForm) : add(profileForm)">
+          <div class="container">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="label-text col-6">First Name</label>
+                <input
+                  autocomplete="true"
+                  type="text"
+                  class="form-control input-style"
+                  placeholder="First Name"
+                  formControlName="firstName"
+                >
+                <div *ngIf="profileForm.controls['firstName'].invalid && profileForm.controls['firstName'].touched"></div>
+              </div>
 
-      <label class="label-text col-5">
-        Last Name
-        <input
-          type="text"
-          class="form-control input-style"
-          placeholder="First name"
-          formControlName="lastName"
-        >
-      </label>
-    </div>
+              <div class="form-group col-md-6">
+                <label class="label-text col-6">Last Name</label>
+                <input
+                  autocomplete="true"
+                  type="text"
+                  class="form-control input-style"
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                >
+                <div *ngIf="profileForm.controls['lastName'].invalid && profileForm.controls['lastName'].touched"></div>
+              </div>
+            </div>
 
-    <div class="form-row">
-      <label class="label-text col-5">
-        Birthday
-        <input
-          type="date"
-          class="form-control input-style"
-          formControlName="dateOfBirth"
-        >
-      </label>
-    </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="label-text col-6">Birthday</label>
+                <input
+                  type="text"
+                  #dp="bsDatepicker"
+                  bsDatepicker class="form-control input-style"
+                  placeholder="dd/mm/yyyy"
+                  [bsConfig]="{containerClass:'theme-default', dateInputFormat: 'DD-MM-YYYY'}"
+                  formControlName="dateOfBirth"
+                >
+                <div *ngIf="profileForm.controls['dateOfBirth'].invalid && profileForm.controls['dateOfBirth'].touched"></div>
+              </div>
 
-    <div class="form-check form-check-inline">
-      <label class="form-check-label">
-        Male
-        <input
-          class="form-check-input input-style"
-          type="radio"
-          value="male"
-          formControlName="gender"
-        >
-      </label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-      <label class="form-check-label">
-        Female
-        <input
-          class="form-check-input input-style"
-          type="radio"
-          value="female"
-          formControlName="gender"
-        >
-      </label>
-    </div>
+              <div class="gender-container form-group col-md-6">
+                <label class="label-text col-12">Gender</label>
 
-    <div class="form-group row">
-      <label class="label-text col-10">
-        Email
-        <input
-          type="email"
-          class="form-control input-style"
-          placeholder="example@gmail.com"
-          formControlName="email"
-        >
-      </label>
-    </div>
+                <div class="gender-container__group">
+                  <div class="col-md-2">
+                    <label for="male" class="gender-container__group-radio">Male</label>
+                    <input id="male" class="input-style" type="radio" value="male" formControlName="gender">
+                  </div>
 
-    <div class="form-group row">
-      <label class="label-text col-10">
-        Phone number
-        <input
-          type="tel"
-          class="form-control input-style"
-          placeholder="+38(063) 536 222 3"
-          formControlName="phoneNumber"
-        >
-      </label>
-    </div>
+                  <div class="col-md-2">
+                    <label for="female" class="gender-container__group-radio">Female</label>
+                    <input id="female" class="input-style" type="radio" value="female" formControlName="gender">
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <div class="row">
-      <div class="col-md-10">
-        <label class="label-text">Country</label>
-        <select class="custom-select" formControlName="country">
-          <option
-            *ngFor="let country of countries"
-            [value]="country"
-          >
-            {{ country }}
-          </option>
-        </select>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="label-text col-6">Email</label>
+                <input
+                  type="text"
+                  class="form-control input-style"
+                  placeholder="example@gmail.com"
+                  formControlName="email"
+                >
+                <div *ngIf="profileForm.controls['email'].invalid && profileForm.controls['email'].touched"></div>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label class="label-text col-6">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control input-style"
+                  placeholder="+XXXX XXX-XXX-XXX"
+                  formControlName="phoneNumber"
+                >
+                <div *ngIf="profileForm.controls['phoneNumber'].invalid && profileForm.controls['phoneNumber'].touched"></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="label-text">Country</label>
+                <select class="custom-select" formControlName="country">
+                  <option selected disabled [value]="countryDefault">--- Select country---</option>
+                  <option *ngFor="let country of countries" [value]="country.name">
+                    {{ country.name }}
+                  </option>
+                </select>
+                <div *ngIf="profileForm.controls['country'].invalid && profileForm.controls['country'].touched"></div>
+              </div>
+            </div>
+
+            <button class="submit-button btn btn-dark btn-lg" type="submit" [disabled]="!profileForm.valid">
+              {{ isEdit ? 'Update' : 'Submit'}}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-
-    <button
-      class="submit-button btn btn-dark btn-lg"
-      type="submit"
-      [disabled]="!profileForm.valid"
-    >
-      {{ isEdit ? 'Update' : 'Submit'}}
-    </button>
   </div>
-</form>
+</div>
