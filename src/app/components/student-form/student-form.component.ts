@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Student } from 'src/app/models/student.model';
 import { filter } from 'rxjs/operators';
 import { MessagesService } from '../../services/messages.service';
+import countries from '../../countries.json';
 
 @Component({
   selector: 'app-student-form',
@@ -12,17 +13,23 @@ import { MessagesService } from '../../services/messages.service';
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
+
   public isEdit: boolean;
-  countries = ['USA', 'Canada', 'Uk', 'Australia', 'Costa Rica'];
+
+  public countries = countries.data;
+  public countryDefault = null;
+
+  private emailValidators = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,10}$';
+  private phoneValidators = '^\\+[0-9-\\ ]+$';
+
   profileForm = new FormGroup({
     _id: new FormControl(''),
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    age: new FormControl(''),
-    email: new FormControl('', Validators.required),
-    phoneNumber: new FormControl(''),
-    country: new FormControl(this.countries[3]),
-    dateOfBirth: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailValidators)]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern(this.phoneValidators)]),
+    country: new FormControl(this.countryDefault, Validators.required),
+    dateOfBirth: new FormControl('', Validators.required),
     gender: new FormControl('')
   });
 
@@ -50,6 +57,11 @@ export class StudentFormComponent implements OnInit {
   }
 
   add(form: FormGroup): void {
+    if (!form.value.gender) {
+      this.messagesService.handlerWarning(`Please fill 'Gender' field`);
+      return;
+    }
+
     const student: Student = {...form.value};
     this.studentService.createStudent(student).subscribe(res => {
       this.messagesService.handlerSuccess(res['message']);
