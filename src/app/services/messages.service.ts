@@ -23,4 +23,8 @@ export class MessagesService {
       this.toastrService.error('Something went wrong! Please try again later');
     }
   }
+
+  public handlerWarning() {
+      this.toastrService.warning(`Please fill 'Gender' filed`);
+  }
 }
