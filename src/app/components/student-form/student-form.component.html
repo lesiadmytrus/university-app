@@ -41,7 +41,7 @@
                   #dp="bsDatepicker"
                   bsDatepicker class="form-control input-style"
                   placeholder="dd-mm-yyyy"
-                  [bsConfig]="{containerClass:'theme-default', dateInputFormat: 'DD-MM-YYYY'}"
+                  [bsConfig]="{dateInputFormat: 'YYYY-MM-DD', containerClass:'theme-default'}"
                   formControlName="dateOfBirth"
                 >
                 <div *ngIf="profileForm.controls['dateOfBirth'].invalid && profileForm.controls['dateOfBirth'].touched"></div>
