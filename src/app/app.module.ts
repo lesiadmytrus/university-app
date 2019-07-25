@@ -13,13 +13,15 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { AgePipe } from './pipes/age.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentComponent,
     StudentFormComponent,
-    DetailsComponent
+    DetailsComponent,
+    AgePipe
   ],
   imports: [
     BrowserModule,

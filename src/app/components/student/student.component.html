@@ -23,7 +23,7 @@
       <td scope="row" class="numeration-list">{{ i + 1 }}</td>
       <td>{{ student.firstName | titlecase }}</td>
       <td>{{ student.lastName | titlecase }}</td>
-      <td>{{ student.age }}</td>
+      <td>{{ student.dateOfBirth | age }}</td>
       <td>{{ student.dateOfBirth | date: 'yyyy-MM-dd' }}</td>
       <td>{{ student.gender }}</td>
       <td>{{ student.email }}</td>
