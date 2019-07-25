@@ -14,8 +14,8 @@ export class StudentService {
     return this.http.post(this.apiURL, student);
   }
 
-  public getAll(): Observable<Student[]> {
-    return this.http.get<Student[]>(this.apiURL);
+  public getAll(query: string): Observable<Student[]> {
+    return this.http.get<Student[]>(`${this.apiURL}${query}`);
   }
 
   public getById(id: string): Observable<Student> {
