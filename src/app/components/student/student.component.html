@@ -1,63 +1,66 @@
 <h2>Students List</h2>
-<div class="container-fluid">
-<table class="students-table">
-  <thead>
-    <tr>
-      <th 
-        *ngFor="let head of headElements"
-        scope="col" 
-        (click)="head.sortable ? sortTable(head.fieldName) : null"
-        [ngClass]="{sortable: head.sortable}"
-      >
-        {{ head.title }}
-        <ng-container *ngIf="head.sortable">
-          <i *ngIf="head.fieldName !== clickedColumn || sortOrder === ''" class="fa fa-sort"></i>
-          <i *ngIf="head.fieldName === clickedColumn && sortOrder === 'desc'" class="fa fa-caret-down"></i>
-          <i *ngIf="head.fieldName === clickedColumn && sortOrder === 'asc'" class="fa fa-caret-up"></i>
-        </ng-container>
-        <ng-container *ngIf="head.filterable">
-          <div class="filter-container">
-            <input
-              (keyup)="filterTable($event, head.fieldName)"
-              type="text"
-              class="filter-container__input"
-            >
-            <i class="fa fa-times filter-container__icon"></i>
+
+<div *ngIf="!isLoading" class="container-fluid">
+  <table class="students-table">
+    <thead>
+      <tr>
+        <th 
+          *ngFor="let head of headElements"
+          scope="col"
+          [ngClass]="{sortable: head.sortable}"
+        >
+          <div (click)="head.sortable ? sortTable(head.fieldName) : null">
+            {{ head.title }}
+            <ng-container *ngIf="head.sortable">
+              <i *ngIf="head.fieldName !== clickedColumn || sortOrder === ''" class="fa fa-sort"></i>
+              <i *ngIf="head.fieldName === clickedColumn && sortOrder === 'desc'" class="fa fa-caret-down"></i>
+              <i *ngIf="head.fieldName === clickedColumn && sortOrder === 'asc'" class="fa fa-caret-up"></i>
+            </ng-container>
           </div>
-        </ng-container>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students; let i=index">
-      <td scope="row" class="numeration-list">{{ i + 1 }}</td>
-      <td>{{ student.firstName | titlecase }}</td>
-      <td>{{ student.lastName | titlecase }}</td>
-      <td>{{ student.dateOfBirth | age }}</td>
-      <td>{{ student.dateOfBirth | date: 'yyyy-MM-dd' }}</td>
-      <td>{{ student.gender }}</td>
-      <td>{{ student.email }}</td>
-      <td>{{ student.phoneNumber }}</td>
-      <td>{{ student.country }}</td>
-      <td>
-        <div class="btn-container">
-          <button
-            class="edit-btn btn btn-outline-primary"
-            (click)="edit(student._id)"
-          >
-            <i class="fa fa-pencil"></i>
-          </button>
-          <button
-            class="delete-btn btn btn-outline-danger"
-            (click)="openConfirmationModal(template, student._id)"
-          >
-            <i class="fa fa-trash-o"></i>
-          </button>
-      </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+          <ng-container *ngIf="head.filterable">
+            <div class="filter-container">
+              <input
+                (keyup)="filterTable($event, head.fieldName)"
+                type="text"
+                class="filter-container__input"
+              >
+              <i class="fa fa-times filter-container__icon"></i>
+            </div>
+          </ng-container>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students; let i=index">
+        <td scope="row" class="numeration-list">{{ i + 1 }}</td>
+        <td>{{ student.firstName | titlecase }}</td>
+        <td>{{ student.lastName | titlecase }}</td>
+        <td>{{ student.dateOfBirth | age }}</td>
+        <td>{{ student.dateOfBirth | date: 'yyyy-MM-dd' }}</td>
+        <td>{{ student.gender }}</td>
+        <td>{{ student.email }}</td>
+        <td>{{ student.phoneNumber }}</td>
+        <td>{{ student.country }}</td>
+        <td>
+          <div class="btn-container">
+            <button
+              class="edit-btn btn btn-outline-primary"
+              (click)="edit(student._id)"
+            >
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button
+              class="delete-btn btn btn-outline-danger"
+              (click)="openConfirmationModal(template, student._id)"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <ng-template #template>
@@ -77,3 +80,5 @@
     </button>
   </div>
 </ng-template>
+
+<app-spinner *ngIf="isLoading"></app-spinner>
