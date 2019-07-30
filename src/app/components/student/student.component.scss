@@ -44,4 +44,19 @@ h2 {
   .sortable {
     cursor: pointer;
   }
+
+  .filter-container {
+    position: relative;
+    margin: 0 10px;
+
+     &__input {
+      border: none;
+     }
+
+     &__icon {
+      position: absolute;
+      right: 5px;
+      top: 6px;
+    }
+  }
 }
