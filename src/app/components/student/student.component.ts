@@ -6,8 +6,10 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { MessagesService } from '../../services/messages.service';
 import { debounceTime } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { FilterField } from '../../models/filter.model';
 
 @Component({
   selector: 'app-student',
@@ -20,8 +22,10 @@ export class StudentComponent implements OnInit {
   deleteStudentId: string;
   sortOrder = '';
   clickedColumn: string;
-  searchTextChanged = new BehaviorSubject<{field: string, value:string}>({field: '', value: ''});
+  filterSubject = new BehaviorSubject<{field: string, value: string}>({field: '', value: ''});
+  sortSubject = new BehaviorSubject<{sortField: string}>({sortField: ''});
   isLoading = false;
+  currentFilterArray = [];
 
   headElements = [
     { title: '№', fieldName: 'number', sortable: false, filterable: false},
@@ -44,19 +48,26 @@ export class StudentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchTextChanged.pipe(
+    const sortStream = this.sortSubject.pipe();
+    const filterStream = this.filterSubject.pipe(
       debounceTime(1000),
       distinctUntilChanged()
-    ).subscribe(filterObj => {
-      let query = '';
+    );
 
-      if (filterObj.field && filterObj.value) {
-        query = `?filter=${filterObj.field} ct ${filterObj.value}`;
+    combineLatest(sortStream, filterStream).subscribe(combinedSubject => {
+      let query = '';
+      const [sort, filter] = combinedSubject;
+      this.currentFilterArray = this.getFilterArray(filter, this.currentFilterArray);
+
+      if (sort.sortField) {
+        query = this.getSortQuery(sort.sortField);
       }
-      
+
+      query = query ? `${query}&${this.setQuery(this.currentFilterArray)}` : `?${this.setQuery(this.currentFilterArray)}`;
+
       this.getStudents(query);
     });
-
+    
     this.getStudents();
   }
 
@@ -82,7 +93,7 @@ export class StudentComponent implements OnInit {
     this.studentService.delete(this.deleteStudentId).subscribe(res => {
       this.messagesService.handlerSuccess(res['message']);
       this.students.splice(this.students.findIndex(student => student._id === this.deleteStudentId), 1);
-      this.dismissModal();      
+      this.dismissModal();
       this.isLoading = false;
     }, error => {
       this.messagesService.handlerError(error.error);
@@ -90,29 +101,28 @@ export class StudentComponent implements OnInit {
   }
 
   dismissModal(): void {
-    this.modalRef.hide();
+    const { modalRef } = {...this};
+    modalRef.hide();
   }
 
   sortTable(field: string): void {
-    const query = this.getSortQuery(field);
-
-    this.getStudents(query);
+    this.sortSubject.next({sortField: field});
   }
 
   private getSortQuery(field: string): string {
     let query = '';
-    
+
     if (this.clickedColumn === field) {
       this.sortOrder = this.getSortOrder(this.sortOrder);
     } else {
       this.clickedColumn = field;
       this.sortOrder = this.getSortOrder('');
     }
-    
+ 
     if (this.sortOrder) {
       query = `?sort=${field}:${this.sortOrder}`;
     }
-    
+ 
     return query;
   }
 
@@ -127,6 +137,48 @@ export class StudentComponent implements OnInit {
   }
 
   filterTable(event, field: string): void {
-    this.searchTextChanged.next({value: event.target.value, field: field});
+    this.filterSubject.next({value: event.target.value, field: field});
+  }
+
+  getFilterArray(newFilter: FilterField, actualFilterArray: Array<FilterField>): Array<FilterField> {
+    let filterArray = [...actualFilterArray];
+    const fieldPredicate = (item: FilterField) => item.field === newFilter.field;
+
+    if (filterArray.length === 0) {
+      if (newFilter.field && newFilter.value) {
+        filterArray.push(newFilter);
+        return filterArray;
+      } else {
+        return filterArray;
+      }
+    } else {
+      const existFilter = filterArray.find(fieldPredicate);
+
+      if (existFilter) {
+        const existIndex = filterArray.findIndex(fieldPredicate);
+
+        if (newFilter.field && newFilter.value) {
+          filterArray.splice(existIndex, 1);
+          filterArray.push(newFilter);
+        } else {
+          filterArray.splice(existIndex, 1);
+        }
+      } else {
+        filterArray.push(newFilter);
+      }
+
+      return filterArray;
+    }
+  }
+
+  setQuery(filterArray: Array<FilterField>): string {
+    const filters: Array<string> = [];
+    filterArray.forEach(item => {
+      filters.push(`filter=${item.field} ct ${item.value}`);
+    });
+
+    let query = filters.length ? `${filters.join('&')}` : '';
+
+    return query;
   }
 }

@@ -1,6 +1,6 @@
 <h2>Students List</h2>
 
-<div *ngIf="!isLoading" class="container-fluid">
+<div [ngStyle]="{'display': isLoading ? 'none' : 'block'}" class="container-fluid">
   <table class="students-table">
     <thead>
       <tr>
@@ -21,6 +21,7 @@
           <ng-container *ngIf="head.filterable">
             <div class="filter-container">
               <input
+                autocomplete="true"
                 (keyup)="filterTable($event, head.fieldName)"
                 type="text"
                 class="filter-container__input"
