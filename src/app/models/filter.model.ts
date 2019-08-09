@@ -1,4 +1,4 @@
-export class FilterField {
+export class FilterModel {
     field: string;
     value: string;
 }

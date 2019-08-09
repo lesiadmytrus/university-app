@@ -5,11 +5,9 @@ import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { MessagesService } from '../../services/messages.service';
-import { debounceTime } from 'rxjs/operators';
-import { combineLatest } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { FilterField } from '../../models/filter.model';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { FilterModel } from '../../models/filter.model';
 
 @Component({
   selector: 'app-student',
@@ -23,9 +21,9 @@ export class StudentComponent implements OnInit {
   sortOrder = '';
   clickedColumn: string;
   filterSubject = new BehaviorSubject<{field: string, value: string}>({field: '', value: ''});
-  sortSubject = new BehaviorSubject<{sortField: string}>({sortField: ''});
+  sortSubject = new BehaviorSubject<{field: string}>({field: ''});
   isLoading = false;
-  currentFilterArray: Array<FilterField> = [];
+  currentFilterArray: Array<FilterModel> = [];
 
   headElements = [
     { title: '№', fieldName: 'number', sortable: false, filterable: false},
@@ -59,11 +57,11 @@ export class StudentComponent implements OnInit {
       const [sort, filter] = combinedSubject;
       this.currentFilterArray = this.getFilterArray(filter, this.currentFilterArray);
 
-      if (sort.sortField) {
-        query = this.getSortQuery(sort.sortField);
+      if (sort.field) {
+        query = this.getSortQuery(sort.field);
       }
 
-      query = query ? `${query}&${this.setQuery(this.currentFilterArray)}` : `?${this.setQuery(this.currentFilterArray)}`;
+      query = query ? `${query}&${this.getQuery(this.currentFilterArray)}` : `?${this.getQuery(this.currentFilterArray)}`;
 
       this.getStudents(query);
     });
@@ -101,12 +99,11 @@ export class StudentComponent implements OnInit {
   }
 
   dismissModal(): void {
-    const { modalRef } = {...this};
-    modalRef.hide();
+    this.modalRef.hide();
   }
 
   sortTable(field: string): void {
-    this.sortSubject.next({sortField: field});
+    this.sortSubject.next({field: field});
   }
 
   private getSortQuery(field: string): string {
@@ -140,9 +137,9 @@ export class StudentComponent implements OnInit {
     this.filterSubject.next({field: field, value: event.target.value});
   }
 
-  getFilterArray(newFilter: FilterField, actualFilterArray: Array<FilterField>): Array<FilterField> {
-    let filterArray = [...actualFilterArray];
-    const fieldPredicate = (item: FilterField) => item.field === newFilter.field;
+  getFilterArray(newFilter: FilterModel, actualFilterArray: Array<FilterModel>): Array<FilterModel> {
+    const filterArray = [...actualFilterArray];
+    const fieldPredicate = (item: FilterModel) => item.field === newFilter.field;
 
     if (filterArray.length === 0) {
       if (newFilter.field && newFilter.value) {
@@ -171,7 +168,7 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  setQuery(filterArray: Array<FilterField>): string {
+  getQuery(filterArray: Array<FilterModel>): string {
     const filters: Array<string> = [];
     filterArray.forEach(item => {
       filters.push(`filter=${item.field} ct ${item.value}`);
