@@ -25,7 +25,7 @@ export class StudentComponent implements OnInit {
   filterSubject = new BehaviorSubject<{field: string, value: string}>({field: '', value: ''});
   sortSubject = new BehaviorSubject<{sortField: string}>({sortField: ''});
   isLoading = false;
-  currentFilterArray = [];
+  currentFilterArray: Array<FilterField> = [];
 
   headElements = [
     { title: '№', fieldName: 'number', sortable: false, filterable: false},
@@ -136,8 +136,8 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  filterTable(event, field: string): void {
-    this.filterSubject.next({value: event.target.value, field: field});
+  filterTable(field: string, event): void {
+    this.filterSubject.next({field: field, value: event.target.value});
   }
 
   getFilterArray(newFilter: FilterField, actualFilterArray: Array<FilterField>): Array<FilterField> {
@@ -176,9 +176,20 @@ export class StudentComponent implements OnInit {
     filterArray.forEach(item => {
       filters.push(`filter=${item.field} ct ${item.value}`);
     });
-
-    let query = filters.length ? `${filters.join('&')}` : '';
+    
+    const query = filters.length ? `${filters.join('&')}` : '';
 
     return query;
+  }
+
+  showInputButton(field: string): boolean {
+    const existFilter = this.currentFilterArray.find(filter => filter.field === field);
+
+    return !!(existFilter && existFilter.value);
+  }
+
+  deleteInputButton(field: string, filterInput: HTMLInputElement): void {
+    filterInput.value = '';
+    this.filterSubject.next({field, value: ''});
   }
 }

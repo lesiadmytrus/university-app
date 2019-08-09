@@ -21,12 +21,18 @@
           <ng-container *ngIf="head.filterable">
             <div class="filter-container">
               <input
+                #filterInput
                 autocomplete="true"
-                (keyup)="filterTable($event, head.fieldName)"
+                (keyup)="filterTable(head.fieldName, $event)"
                 type="text"
                 class="filter-container__input"
               >
-              <i class="fa fa-times filter-container__icon"></i>
+              <i
+                *ngIf="showInputButton(head.fieldName)"
+                class="fa fa-times filter-container__icon"
+                (click)="deleteInputButton(head.fieldName, filterInput)"
+              >
+              </i>
             </div>
           </ng-container>
         </th>
@@ -83,3 +89,4 @@
 </ng-template>
 
 <app-spinner *ngIf="isLoading"></app-spinner>
+
