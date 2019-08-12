@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgePipe } from './pipes/age.pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { AgePipe } from './pipes/age.pipe';
     StudentComponent,
     StudentFormComponent,
     DetailsComponent,
-    AgePipe
+    AgePipe,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

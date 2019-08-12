@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'age'
 })
 export class AgePipe implements PipeTransform {
-  transform(value: string) {
+  transform(value: string): number {
     const milisecondsInYear = 31557600000;
     const currentDay = Date.now();
     const birthDay = Date.parse(value);
