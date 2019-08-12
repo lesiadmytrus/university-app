@@ -1,0 +1,64 @@
+{
+  "data": [
+  	{
+			"title": "№",
+			"fieldName": "number",
+			"sortable": false,
+			"filterable": false
+    },
+    {
+			"title": "First Name",
+			"fieldName": "firstName",
+			"sortable": true, 
+			"filterable": true
+    },
+    {
+			"title": "Last Name",
+			"fieldName": "lastName",
+			"sortable": true, 
+			"filterable": true
+    },
+    {
+			"title": "Age",
+			"fieldName": "age",
+			"sortable": true,
+			"filterable": true
+    },
+    {
+			"title": "Birthday",
+			"fieldName": "dateOfBirth",
+			"sortable": true, 
+			"filterable": true
+		},
+    {
+			"title": "Gender",
+			"fieldName": "gender",
+			"sortable": true, 
+			"filterable": true
+		},
+    {
+			"title": "Email",
+			"fieldName": "email",
+			"sortable": true,
+			"filterable": true
+		},
+    {
+			"title": "Phone Number",
+			"fieldName": "phoneNumber",
+			"sortable": true,
+			"filterable": true
+		},
+    {
+			"title": "Country",
+			"fieldName": "country",
+			"sortable": true,
+			"filterable": true
+		},
+    {
+			"title": "Actions",
+			"fieldName": "actions",
+			"sortable": false,
+			"filterable": false
+    }
+  ]
+}

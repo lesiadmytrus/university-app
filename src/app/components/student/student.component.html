@@ -5,11 +5,11 @@
     <thead>
       <tr>
         <th 
-          *ngFor="let head of headElements"
+          *ngFor="let head of headers"
           scope="col"
           [ngClass]="{sortable: head.sortable}"
         >
-          <div (click)="head.sortable ? sortTable(head.fieldName) : null">
+          <div (click)="head.sortable ? onSortTable(head.fieldName) : null">
             {{ head.title }}
             <ng-container *ngIf="head.sortable">
               <i *ngIf="head.fieldName !== clickedColumn || sortOrder === ''" class="fa fa-sort"></i>
@@ -23,14 +23,14 @@
               <input
                 #filterInput
                 autocomplete="true"
-                (keyup)="filterTable(head.fieldName, $event)"
+                (keyup)="onFilterTable(head.fieldName, $event)"
                 type="text"
                 class="filter-container__input"
               >
               <i
-                *ngIf="showInputButton(head.fieldName)"
+                *ngIf="isShowFilter(head.fieldName)"
                 class="fa fa-times filter-container__icon"
-                (click)="deleteInputButton(head.fieldName, filterInput)"
+                (click)="onFilterClear(head.fieldName, filterInput)"
               >
               </i>
             </div>

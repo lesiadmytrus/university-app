@@ -8,6 +8,7 @@ import { MessagesService } from '../../services/messages.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { FilterModel } from '../../models/filter.model';
+import studentsTableHeaders from '../../components/student/students-table-headers.json';
 
 @Component({
   selector: 'app-student',
@@ -24,25 +25,13 @@ export class StudentComponent implements OnInit {
   sortSubject = new BehaviorSubject<{field: string}>({field: ''});
   isLoading = false;
   currentFilterArray: Array<FilterModel> = [];
-
-  headElements = [
-    { title: '№', fieldName: 'number', sortable: false, filterable: false},
-    { title: 'First Name', fieldName: 'firstName', sortable: true, filterable: true },
-    { title: 'Last Name', fieldName: 'lastName', sortable: true, filterable: true },
-    { title: 'Age', fieldName: 'age', sortable: true, filterable: true },
-    { title: 'Birthday', fieldName: 'dateOfBirth', sortable: true, filterable: true },
-    { title: 'Gender', fieldName: 'gender', sortable: true, filterable: true },
-    { title: 'Email', fieldName: 'email', sortable: true, filterable: true },
-    { title: 'Phone Number', fieldName: 'phoneNumber', sortable: true, filterable: true },
-    { title: 'Country', fieldName: 'country', sortable: true, filterable: true },
-    { title: 'Actions', fieldName: 'actions', sortable: false, filterable: false }
-  ];
+  headers = studentsTableHeaders.data;
 
   constructor(
     private studentService: StudentService,
     private router: Router,
     private modalService: BsModalService,
-    private messagesService: MessagesService,
+    private messagesService: MessagesService
   ) { }
 
   ngOnInit() {
@@ -61,7 +50,7 @@ export class StudentComponent implements OnInit {
         query = this.getSortQuery(sort.field);
       }
 
-      query = query ? `${query}&${this.getQuery(this.currentFilterArray)}` : `?${this.getQuery(this.currentFilterArray)}`;
+      query = query ? `${query}&${this.getFilterQuery(this.currentFilterArray)}` : `?${this.getFilterQuery(this.currentFilterArray)}`;
 
       this.getStudents(query);
     });
@@ -102,7 +91,7 @@ export class StudentComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  sortTable(field: string): void {
+  onSortTable(field: string): void {
     this.sortSubject.next({field: field});
   }
 
@@ -133,7 +122,7 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  filterTable(field: string, event): void {
+  onFilterTable(field: string, event): void {
     this.filterSubject.next({field: field, value: event.target.value});
   }
 
@@ -168,7 +157,7 @@ export class StudentComponent implements OnInit {
     }
   }
 
-  getQuery(filterArray: Array<FilterModel>): string {
+  getFilterQuery(filterArray: Array<FilterModel>): string {
     const filters: Array<string> = [];
     filterArray.forEach(item => {
       filters.push(`filter=${item.field} ct ${item.value}`);
@@ -179,13 +168,13 @@ export class StudentComponent implements OnInit {
     return query;
   }
 
-  showInputButton(field: string): boolean {
+  isShowFilter(field: string): boolean {
     const existFilter = this.currentFilterArray.find(filter => filter.field === field);
 
     return !!(existFilter && existFilter.value);
   }
 
-  deleteInputButton(field: string, filterInput: HTMLInputElement): void {
+  onFilterClear(field: string, filterInput: HTMLInputElement): void {
     filterInput.value = '';
     this.filterSubject.next({field, value: ''});
   }
