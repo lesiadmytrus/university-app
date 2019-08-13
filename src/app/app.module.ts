@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgePipe } from './pipes/age.pipe';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     StudentFormComponent,
     DetailsComponent,
     AgePipe,
-    SpinnerComponent
+    SpinnerComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
