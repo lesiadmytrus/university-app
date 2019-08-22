@@ -1,7 +1,15 @@
-<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" routerLink="home">Home</a>
-  <a class="navbar-brand" routerLink="students">Students</a>
-  <a class="navbar-brand" routerLink="students/create">Add</a>
+  <ng-container *ngIf="isLoggedIn">
+    <a class="navbar-brand" routerLink="students">Students</a>
+    <a class="navbar-brand" routerLink="students/create">Add</a>
+    <a class="navbar-brand log-out" (click)="onLogOut()">Logout</a>
+  </ng-container>
+
+  <ng-container *ngIf="!isLoggedIn">
+    <a class="navbar-brand" routerLink="registration">Registration</a>
+    <a class="navbar-brand" routerLink="login">Login</a>
+  </ng-container>
 </nav>
 
 <router-outlet></router-outlet>
