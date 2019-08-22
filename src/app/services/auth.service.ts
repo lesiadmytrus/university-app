@@ -5,13 +5,12 @@ import { User } from '../models/user.model';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class AuthService {
-    
-	constructor(private http: HttpClient) { }
-
 	private readonly apiURL = 'http://localhost:3000/api/auth';
+
+	constructor(private http: HttpClient) { }
 
 	public registerUser(user: User): Observable<Object> {
 		return this.http.post(`${this.apiURL}/register`, user);

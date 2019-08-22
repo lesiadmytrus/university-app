@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   onLogInUser(form: FormGroup) {
     const user: User = {...form.value};
+    
     this.auth.logInUser(user.email, user.password)
       .subscribe(res => {
         this.router.navigate(['/students']);
