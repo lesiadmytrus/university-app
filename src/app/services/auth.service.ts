@@ -4,6 +4,12 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { tap } from 'rxjs/operators';
 
+
+
+
+
+
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -25,9 +31,15 @@ export class AuthService {
 			);
 	}
 
+
+	//set token to localStorage
+
 	public setToken(token: string) {
 		localStorage.setItem('access_token', token);
 	}
+
+
+	//get token from localStorage
 
 	public getToken() {
 		return localStorage.getItem('access_token');

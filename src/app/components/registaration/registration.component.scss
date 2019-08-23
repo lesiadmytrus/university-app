@@ -9,7 +9,7 @@ $border-solid-1-red: 1px solid red;
 }
 
 .text-center {
-  font-size: .9rem;
+	font-size: .9rem;
 }
 
 a {
@@ -20,12 +20,12 @@ a {
 label[class='asterisk']::after {
 	content: "*"; color:red;
 	padding-left: 3px;
-} 
+}
 
 input.ng-invalid.ng-touched {
 	border: $border-solid-1-red;
 }
-  
+
 select.ng-invalid.ng-touched {
 	border: $border-solid-1-red;
 }
