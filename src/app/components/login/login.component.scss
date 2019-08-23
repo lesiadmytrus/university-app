@@ -1,0 +1,31 @@
+@import '../../scss-variables/scss-variables.scss';
+
+.login-btn-container {
+	margin-top: 1.7rem;
+		
+	.btn-dark-login {
+		padding-top: 3px;
+	}
+}
+
+.text-center {
+	font-size: .9rem;
+}
+
+a {
+	text-decoration: underline;
+	padding-left: 4px;
+}
+
+label[class='asterisk']::after {
+	content: "*"; color:red;
+	padding-left: 3px;
+}
+
+input.ng-invalid.ng-touched {
+	border: $border-solid-1-red;
+}
+  
+select.ng-invalid.ng-touched {
+	border: $border-solid-1-red;
+}

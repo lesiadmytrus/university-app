@@ -50,9 +50,10 @@ export class StudentComponent implements OnInit {
         query = this.getSortQuery(sort.field);
       }
 
-      query = query ? `${query}&${this.getFilterQuery(this.currentFilterArray)}` : `?${this.getFilterQuery(this.currentFilterArray)}`;
+      const filterQuery = this.getFilterQuery(this.currentFilterArray);
+      query = query ? `${query}&${this.getFilterQuery(this.currentFilterArray)}` : filterQuery ? `?${filterQuery}` : '';
 
-      this.getStudents(query);
+      query && this.getStudents(query);
     });
     
     this.getStudents();

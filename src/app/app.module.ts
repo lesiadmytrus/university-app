@@ -16,7 +16,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgePipe } from './pipes/age.pipe';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { HomeComponent } from './components/home/home.component';
-
+import { RegistrationComponent } from './components/registaration/registration.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { HomeComponent } from './components/home/home.component';
     DetailsComponent,
     AgePipe,
     SpinnerComponent,
-    HomeComponent
+    HomeComponent,
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

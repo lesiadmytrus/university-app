@@ -1,8 +1,8 @@
+@import '../../scss-variables/scss-variables.scss';
 $padding: 16px;
-$border-solid-1-red: 1px solid red;
 
 .container {
-  padding: $padding;
+	padding: $padding;
 	
 	.label-text {
 		font-weight: 400;
@@ -35,7 +35,7 @@ $border-solid-1-red: 1px solid red;
 
 			.input-style {
 				margin: 0;
-			} 
+			}
 		}
 	}
 
@@ -48,7 +48,7 @@ $border-solid-1-red: 1px solid red;
 	input.ng-invalid.ng-touched {
 		border: $border-solid-1-red;
 	}
-	  
+
 	select.ng-invalid.ng-touched {
 		border: $border-solid-1-red;
 	}
