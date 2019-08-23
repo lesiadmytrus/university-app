@@ -1,8 +1,8 @@
-$border-solid-1-red: 1px solid red;
+@import '../../scss-variables/scss-variables.scss';
 
 .register-btn-container {
 	margin-top: 1.7rem;
-	
+
 	.btn-dark-register {
 		padding-top: 3px;
 	}
