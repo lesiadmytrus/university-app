@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent {
 	public countries = countries.data;
 	public countryDefault = null;
 	public passwordPattern = '.{6,12}';
@@ -31,9 +31,6 @@ export class RegistrationComponent implements OnInit {
 		private messagesService: MessagesService,
 		private router: Router
 	) { }
-
-	ngOnInit() {
-	}
 
 	onRegisterUser(form: FormGroup): void {
 		const user: User = {...form.value};

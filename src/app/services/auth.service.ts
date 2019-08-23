@@ -34,7 +34,7 @@ export class AuthService {
 	}
 
 	public isLoggedIn() {
-		return !!(this.getToken());
+		return !!this.getToken();
 	}
 
 	public logOut(): void {
