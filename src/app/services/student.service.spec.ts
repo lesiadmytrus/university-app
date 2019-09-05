@@ -37,7 +37,7 @@ const mockCreatedStudent = {
   country: 'France',
   gender: 'male',
   dateOfBirth: '1899-10-29'
-}
+};
 
 const mockUpdatedStudent = {
   _id: 'f6acd450-c8c4-11e9-a32f-2a2ae2dbcce4',
@@ -49,7 +49,7 @@ const mockUpdatedStudent = {
   country: 'France',
   gender: 'male',
   dateOfBirth: '1899-10-29'
-}
+};
 
 const invalidStudentId = '1e25245a-a32f-2a2ae2dbcce4';
 const mockId = 'f6acd450-c8c4-11e9-a32f-2a2ae2dbcce4';
