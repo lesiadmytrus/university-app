@@ -31,33 +31,39 @@ describe('MessagesService', () => {
     expect(messagesService).toBeTruthy();
   });
 
-  it('#handlerSuccess should return success message', () => {
-    spyOn(toster, 'success').and.callThrough();
-    messagesService.handlerSuccess(mockSuccessMessage);
-    expect(toster.success).toHaveBeenCalled();
+  describe('HandlerSuccessMessage', () => {
+    it('#handlerSuccess should return success message', () => {
+      spyOn(toster, 'success').and.callThrough();
+      messagesService.handlerSuccess(mockSuccessMessage);
+      expect(toster.success).toHaveBeenCalled();
+    });
+
+    it('#handlerSuccess should return default success message', () => {
+      spyOn(toster, 'success').and.callThrough();
+      messagesService.handlerSuccess('');
+      expect(toster.success).toHaveBeenCalled();
+    });
   });
 
-  it('#handlerSuccess should return default success message', () => {
-    spyOn(toster, 'success').and.callThrough();
-    messagesService.handlerSuccess('');
-    expect(toster.success).toHaveBeenCalled();
-  });
-  
-  it('#handlerError should return error message', () => {
-    spyOn(toster, 'error').and.callThrough();
-    messagesService.handlerError(mockErrorMessage);
-    expect(toster.error).toHaveBeenCalled();
-  });
-  
-  it('#handlerError should return default error message', () => {
-    spyOn(toster, 'error').and.callThrough();
-    messagesService.handlerError('');
-    expect(toster.error).toHaveBeenCalled();
+  describe('HandlerErrorMessage', () => {
+    it('#handlerError should return error message', () => {
+      spyOn(toster, 'error').and.callThrough();
+      messagesService.handlerError(mockErrorMessage);
+      expect(toster.error).toHaveBeenCalled();
+    });
+
+    it('#handlerError should return default error message', () => {
+      spyOn(toster, 'error').and.callThrough();
+      messagesService.handlerError('');
+      expect(toster.error).toHaveBeenCalled();
+    });
   });
 
-  it('#handlerWarning should return default warning message', () => {
-    spyOn(toster, 'warning').and.callThrough();
-    messagesService.handlerWarning('');
-    expect(toster.warning).toHaveBeenCalled();
+  describe('HandlerWarningMessage', () => {
+    it('#handlerWarning should return default warning message', () => {
+      spyOn(toster, 'warning').and.callThrough();
+      messagesService.handlerWarning('');
+      expect(toster.warning).toHaveBeenCalled();
+    });
   });
 });
