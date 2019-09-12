@@ -52,7 +52,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  describe('OnLogOut user', () => {
+  describe('OnLogOut', () => {
     it('#onLogOut should log out user', () => {
       fixture.ngZone.run(() => {
         spyOn(auth, 'logOut').and.callThrough();
