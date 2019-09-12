@@ -35,7 +35,7 @@ describe('AppComponent', () => {
         { provide: AuthService, useClass: AuthService }
       ]
     }).compileComponents()
-        .then(() => {  
+        .then(() => {
           fixture = TestBed.createComponent(AppComponent);
           component = fixture.componentInstance;
           auth = TestBed.get(AuthService);
@@ -52,16 +52,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  describe('onLogOut', () => {
-    it('should log out user', () => {
+  describe('OnLogOut user', () => {
+    it('#onLogOut should log out user', () => {
       fixture.ngZone.run(() => {
         spyOn(auth, 'logOut').and.callThrough();
         component.onLogOut();
         expect(auth.logOut).toHaveBeenCalled();
       });
     });
-    
-    it('should navigate', () => {
+
+    it('router should navigate to login', () => {
       fixture.ngZone.run(() => {
         let navigateSpy = spyOn(router, 'navigate');
         component.onLogOut();
