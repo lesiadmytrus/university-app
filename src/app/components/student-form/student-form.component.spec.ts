@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StudentFormComponent } from './student-form.component';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,11 +12,11 @@ import { StudentService } from '../../services/student.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MessagesService } from 'src/app/services/messages.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Location } from '@angular/common';
-import { NgZone } from '@angular/core';
 import { StudentComponent } from '../student/student.component';
 import { AgePipe } from 'src/app/pipes/age.pipe';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { Student } from 'src/app/models/student.model';
+import { Observable, of, throwError } from 'rxjs';
 
 const mockStudent = new FormGroup({
   _id: new FormControl(),
@@ -39,32 +39,63 @@ const mockStudentWithoutGender = new FormGroup({
   gender: new FormControl()
 });
 
-const student = {
-  _id: 'f6acd450-c8c4-11e9-a32f-2a2ae2dbcce4',
-  firstName: 'Norman',
-  lastName: 'Firstman',
-  age: 120,
-  email: 'norman@g.com',
-  phoneNumber: 1234,
-  country: 'France',
-  gender: 'male',
-  dateOfBirth: '1899-10-29'
-};
+const studentsMock: Student[] = [
+  {
+    _id: 'a6f75bae-c8bc-11e9-a32f-2a2ae2dbcce4',
+    firstName: 'Alan',
+    lastName: 'Lastman',
+    age: 123,
+    email: 'alan@g.com',
+    phoneNumber: 123,
+    country: 'Italy',
+    gender: 'male',
+    dateOfBirth: '1896-09-11'
+  },
+  {
+    _id: 'f6acd450-c8c4-11e9-a32f-2a2ae2dbcce4',
+    firstName: 'Norman',
+    lastName: 'Firstman',
+    age: 120,
+    email: 'norman@g.com',
+    phoneNumber: 1234,
+    country: 'France',
+    gender: 'male',
+    dateOfBirth: '1899-10-29'
+  }
+];
+
+const emptyMockStudent = new FormGroup({});
 
 const mockStudentId = 'f6acd450-c8c4-11e9-a32f-2a2ae2dbcce4';
-const message =  'succ';
+const mockSuccessMessage = {
+  message: 'Student succesfully created'
+};
+
+class MockStudentService {
+  createStudent(student: Student): Observable<Object> {
+    if (Object.keys(student).length > 0) {
+      return of(mockSuccessMessage);
+    }
+
+    throwError({ error: 'Something went wrong, please try again later' });
+  }
+
+  update(student: Student): Observable<Object> {
+    return of(mockSuccessMessage);
+  }
+
+  getById(id: string): Observable<Object> {
+    return of(mockStudent);
+  }
+}
 
 describe('StudentFormComponent', () => {
   let component: StudentFormComponent;
   let fixture: ComponentFixture<StudentFormComponent>;
-  let studentService: jasmine.SpyObj<StudentService>;
-  let toster: jasmine.SpyObj<ToastrService>;
-  let router: Router;
-  let location: Location;
-  let ngZone: NgZone;
-  let messagesService: jasmine.SpyObj<MessagesService>;
+  let studentService: MockStudentService;
+  let messagesService: MessagesService;
 
-  beforeEach(async(() => {   
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         StudentFormComponent,
@@ -84,29 +115,25 @@ describe('StudentFormComponent', () => {
         HttpClientTestingModule,
         ToastrModule.forRoot(),
         RouterTestingModule.withRoutes([
-          // { path: 'students', component: StudentComponent }
+          { path: 'students', component: StudentComponent }
         ])
       ],
       providers: [
         { provide: FormGroup, useValue: FormGroup },
-        { provide: StudentService, useClass: StudentService }
+        { provide: StudentService, useClass: MockStudentService },
+        { provide: MessagesService, useClass: MessagesService }
       ]
     })
       .compileComponents()
         .then(() => {
           fixture = TestBed.createComponent(StudentFormComponent);
           component = fixture.componentInstance;
-          studentService = TestBed.get(StudentService);
-          toster = TestBed.get(ToastrService);
-          router = TestBed.get(Router);
-          location = TestBed.get(Location);
-          ngZone = TestBed.get(NgZone);
+          studentService = new MockStudentService();
           messagesService = TestBed.get(MessagesService);
-          // router.initialNavigation();
       });
   }));
 
-  it('should be created', () => {
+  xit('should be created', () => {
     expect(component).toBeTruthy();
   });
 
@@ -126,6 +153,7 @@ describe('StudentFormComponent', () => {
       let errors = name.errors || {};
       expect(errors['required']).toBeTruthy();
     });
+
     it('should return true if email is valid', () => {
       let email = component.profileForm.controls['email'];
       let errors = email.errors || {};
@@ -134,54 +162,31 @@ describe('StudentFormComponent', () => {
     });
   });
 
-  describe('CreateNewStudent', () => {
-    it('#createStudent should added new student', () => {
-      spyOn(studentService, 'createStudent').and.callThrough();
+  describe('AddStudent', () => {
+    it('#add should create new student', () => {
+      spyOn(messagesService, 'handlerSuccess');
       component.add(mockStudent);
-      expect(studentService.createStudent).toHaveBeenCalled();
+      expect(messagesService.handlerSuccess).toHaveBeenCalledWith(mockSuccessMessage.message);
     });
 
     it('should check if "gender" is checked', () => {
-      spyOn(studentService, 'createStudent').and.callThrough();
       component.add(mockStudentWithoutGender);
-      expect(studentService.createStudent).not.toHaveBeenCalled();
+      expect(component.add).toBeDefined();
     });
   });
 
   describe('UpdateStudent', () => {
-    it('#update should updated student', () => {
-      spyOn(studentService, 'update').and.callThrough();
+    it('#update should update student', () => {
+      spyOn(messagesService, 'handlerSuccess');
       component.update(mockStudent);
-      expect(studentService.update).toHaveBeenCalled();
+      expect(messagesService.handlerSuccess).toHaveBeenCalledWith(mockSuccessMessage.message);
     });
   });
-  
-    // it('should navigate', () => {
-      // fixture.ngZone.run(() => {
-      // spyOn(mockRouterService, 'navigate');
-      // component.update(mockStudent);
-      // expect(mockRouterService.navigate).toHaveBeenCalledWith('/students');
-      // router.navigate(['/students']);
-      // expect(location.path()).toBe('/students');
-      // let res;
-      // let navigateSpy = spyOn(router, 'navigate');
-      // expect(navigateSpy).toHaveBeenCalledWith('/students');
-      // });
-    // });
-  //   it('123', () => {
-  //     spyOn(toster, 'success').and.callThrough();
-  //     messagesService.handlerSuccess(message);
-  //     spyOn(studentService, 'update').and.callThrough();
-  //     component.update(mockStudent);
-  //     expect(studentService.update).toHaveBeenCalled();
-  //     expect(toster.success).toHaveBeenCalled();
-  // });
 
   describe('GetStudent', () => {
     it('#getStudent should get student by id', () => {
-      spyOn(studentService, 'getById').and.callThrough();
       component.getStudent(mockStudentId);
-      expect(studentService.getById).toHaveBeenCalled();
+      expect(component.getStudent).toBeDefined();
     });
   });
 });
