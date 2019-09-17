@@ -7,7 +7,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NgZone } from '@angular/core';
 import { LoginComponent } from '../components/login/login.component';
 
 class MockRouter {
@@ -21,7 +20,6 @@ describe('AuthGuard ', () => {
   let auth: AuthGuard;
   let authService;
   let router;
-  let ngZone: NgZone;
   let next: ActivatedRouteSnapshot;
   let state: RouterStateSnapshot;
 
@@ -48,7 +46,6 @@ describe('AuthGuard ', () => {
 
     auth = TestBed.get(AuthGuard);
     httpTestingController = TestBed.get(HttpTestingController);
-    ngZone = TestBed.get(NgZone);
   }));
 
   it('should be created', () => {

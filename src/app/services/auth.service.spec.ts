@@ -36,7 +36,7 @@ describe('AuthService', () => {
     });
 
     it('#getItem should get user token', () => {
-      spyOn(localStorage, 'setItem').and.callThrough();
+      localStorage.setItem('access_token', mockToken);
       spyOn(localStorage, 'getItem').and.callThrough();
       auth.getToken();
       expect(localStorage.getItem).toHaveBeenCalledWith('access_token');
