@@ -2,10 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { BsDatepickerModule, BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Router } from '@angular/router';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StudentComponent } from './student.component';
@@ -13,13 +13,12 @@ import { AgePipe } from '../../pipes/age.pipe';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { StudentService } from 'src/app/services/student.service';
 import { Student } from '../../models/student.model';
-import { of, Subject, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FilterModel } from 'src/app/models/filter.model';
 import { MessagesService } from 'src/app/services/messages.service';
-import { TemplateRef } from '@angular/core';
-
-export class MockNgbModalRef {
-  result: Promise<any> = new Promise((resolve, reject) => resolve());
-}
+import { Observable } from 'rxjs';
 
 const studentsMock: Student[] = [
   {
@@ -48,44 +47,65 @@ const studentsMock: Student[] = [
 
 const event = {
   target: {
-    value: 'test'
+    value: 'test1'
   }
 };
 
-// const filterSubject = (field: string, value: any) => of(<{field: string, value: any}>({field: 'lastName', value: event.target.value }));
-
-const stubbedStudentsService = {
-  getAll: (query: string) => of(studentsMock),
-  delete: (id: string) => of(),
-  // sortSubject: (fiels: string) => of({field: 'firstName'})
+const eventWithEmptyValue = {
+  target: {
+    value: ''
+  }
 };
 
-const stubbedModalService = {
-  show: (content: string, config: ModalOptions) => void {}
-};
+class MockStudentService {
+  getAll(query: Student): Observable<Student[]> {
+    return of(studentsMock);
+  }
 
-const stubbedModalRef = {
-  hide: () => null
-};
+ delete(id: string): Observable<Object> {
+    return of();
+  }
+}
 
-const mockData = {
-  field: 'firstName'
-};
-
-const mockSuccessMessage = 'You are success!';
-const mockErrorMessage = { message: 'It is an error!' };
 const mockStudentId = 'a6f75bae-c8bc-11e9-a32f-2a2ae2dbcce4';
+
+const mockNewFilter: FilterModel = {
+  field: 'firstName',
+  value: 'test'
+};
+
+const mockActualFilterArray: FilterModel[] = [
+  {
+    field: 'lastName',
+    value: 'test1'
+  },
+  {
+    field: 'country',
+    value: 'test3'
+  }
+];
+
+const mockEmptyActualFilterArray: FilterModel[] = [
+  {
+    field: 'lastName',
+    value: 'e'
+  },
+  {
+    field: 'firstName',
+    value: 'g'
+  }
+];
 
 describe('StudentComponent', () => {
   let component: StudentComponent;
   let fixture: ComponentFixture<StudentComponent>;
-  let studentService: jasmine.SpyObj<StudentService>;
-  let toster: ToastrService;
-  let messagesService: MessagesService;
+  let studentService: MockStudentService;;
   let bsModalService: BsModalService;
-  let sortSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'firsName'});
-  let filterSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'lastName', value: event.target.value });
-  let mockModalRef: MockNgbModalRef = new MockNgbModalRef();
+  let mockSortSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'firstName'});
+  let mockFilterSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'lastName', value: event.target.value });
+  let mockEmptyfilterSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'lastName', value: eventWithEmptyValue.target.value });
+  let filterInput: HTMLInputElement;
+  let router: Router;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -104,29 +124,24 @@ describe('StudentComponent', () => {
         ToastrModule.forRoot(),
         BrowserAnimationsModule,
         HttpClientTestingModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        RouterTestingModule.withRoutes([ ])
       ],
       providers: [
         { provide: FormGroup, useValue: FormGroup },
-        { provide: StudentService, useValue: stubbedStudentsService },
+        { provide: StudentService, useClass: MockStudentService },
         { provide: BsModalService, useClass: BsModalService },
-        { provide: ToastrService, useClass: ToastrService },
-        { provide: TemplateRef, useClass: TemplateRef }
+        { provide: BsModalRef, useClass: BsModalRef },
+        { provide: MessagesService, useClass: MessagesService }
       ]
     })
       .compileComponents()
         .then(() => {
           fixture = TestBed.createComponent(StudentComponent);
           component = fixture.componentInstance;
-          studentService = TestBed.get(StudentService);
+          studentService = new MockStudentService();
           bsModalService = TestBed.get(BsModalService);
-          messagesService = TestBed.get(MessagesService);
-          // bsModalService.hide(1);
-          // TestBed.overrideComponent(TestComponent, {
-          //   set: {
-          //     template: '<ng-template></ng-template>'
-          //   }
-          // });
+          router = TestBed.get(Router);
 
           fixture.detectChanges();
         });
@@ -139,6 +154,7 @@ describe('StudentComponent', () => {
   describe('GetAllStudents', () => {
     it('#getAll should get all students', () => {
       const query = '';
+      
       component.getStudents(query);
       expect(component.students).toEqual(studentsMock);
     });
@@ -152,77 +168,74 @@ describe('StudentComponent', () => {
 
   describe('ConfirmDeletation', () => {
     it('#delete should delete student', () => {
-      spyOn(studentService, 'delete').and.callThrough();
       component.confirmDeletion();
-      expect(studentService.delete).toHaveBeenCalled();
     });
-
-    // it('#dismissModal should close modal window', () => {
-      // spyOn(stubbedModalRef, 'hide').and.callThrough();
-      // component.dismissModal();
-      // expect(stubbedModalService.hide).toHaveBeenCalled();
-
-      // spyOn(component.modalRef, 'hide').and.callThrough();
-      // component.dismissModal();
-      // expect(component.modalRef.hide).toHaveBeenCalled();
-      // expect(component.dismissModal).toHaveBeenCalled();
-    // });
   });
 
   describe('OpenConfirmationModel', () => {
     it('should open model', () => {
-      // spyOn(stubbedModalService, 'show').and.returnValue(mockModalRef);
-      // component.openConfirmationModal(fixture.nativeElement, mockStudentId);
-      // expect(stubbedModalService.show).toHaveBeenCalled();
-
-      spyOn(bsModalService, 'show').and.returnValue(mockModalRef);
+      spyOn(bsModalService, 'show');
       component.openConfirmationModal(fixture.nativeElement, mockStudentId);
       expect(bsModalService.show).toHaveBeenCalled();
     });
   });
 
-  // describe('OnSortTable', () => {
-  //   it('#onSortTable should sort data', () => {
-  //     const field = 'firstName';
-      // const field = 'firstName';
-      // spyOn(stubbedStudentsService, 'sortSubject').and.returnValue({field});
-      // component.onSortTable(field);
-      // sortSubject.subscribe(sortField=> {
-      //   console.log('sdrtert',sortSubject);
-      //   expect(sortField).toBe({field: 'firstName'});
-      //   stubbedStudentsService.sortSubject('firstName');
-      // });
+  describe('OnSortTable', () => {
+    it('#onSortTable should sort data in table', () => {
+      const field = 'firstName';
+      component.onSortTable(field);
 
-  //     spyOn(sortSubject, 'next').and.callThrough();
-  //     component.onSortTable(field);
-  //     sortSubject.subscribe(sort => {
-  //       expect(sortSubject.next).toHaveBeenCalledWith(sort);
-  //     });
-  //   });
-  // });
+      mockSortSubject.subscribe(sortField => {
+        expect(sortField).toEqual({field: 'firstName'});
+      });
+    });
+  });
 
-  // describe('OnFilterTable', () => {
-  //   it('#onFilterTable should filter data', () => {
-  //     const field = 'lastName';
-  //     spyOn(filterSubject, 'next').and.callThrough();
-  //     component.onFilterTable(field, event);
-      // filterSubject.subscribe((filterData) => {
-      //   expect(filterData).toBe({field: 'lastName', event: 'son'});
-      //   expect(event).toBe('son');
-      // });
-    //  expect(filterSubject.next).toHaveBeenCalled();
+  describe('OnFilterTable', () => {
+    it('#onFilterTable should filter data in table', () => {
+      const field = 'lastName';
+      component.onFilterTable(field, event);
 
-      // filterSubject.subscribe(filter => {
-      //   expect(filter).toEqual({field: 'lastName', value: 'test'});
-      // });
-    // });
-  // });
+      mockFilterSubject.subscribe(filter => {
+        expect(filter).toEqual({field: 'lastName', value: 'test1'});
+      });
+    });
+  });
 
-  fdescribe('onFilter', () => {
-    it('should onfilter', () => {
-      sortSubject.subscribe(res => expect(res).toEqual(mockData));
-      component.onSortTable('firstName');
-      sortSubject.next(mockData);
+  describe('onFilterClear', () => {
+    it('#onFilterClear should clear filter field', () => {
+      const field = 'lastName';
+      filterInput = fixture.nativeElement;
+      component.onFilterClear(field, filterInput);
+      mockEmptyfilterSubject.subscribe(clear => {
+        expect(clear).toEqual({field: 'lastName', value: ''});
+      });
+    });
+  });
+
+  describe('Edit', () => {
+    it('#edit should sort be order', () => {
+      let navigateSpy = spyOn(router, 'navigate');
+      component.edit(mockStudentId);
+      expect(navigateSpy).toHaveBeenCalledWith([`/students/${mockStudentId}/edit`]);
+    });
+  });
+
+  describe('GetFilterArray', () => {
+    it('#getFilterArray should filter', () => {
+      let result = component.getFilterArray(mockNewFilter, mockActualFilterArray);
+      expect(result.length).toEqual(3);
+    });
+
+    it('should push new filter', () => {
+      let result = component.getFilterArray(mockActualFilterArray[0], mockActualFilterArray);
+      expect(result.length).toEqual(2);
+    });
+
+    it('should slice', () => {
+      const emptyNewFilter: FilterModel = {field: 'firstName', value: ''};
+      let result = component.getFilterArray(emptyNewFilter, mockEmptyActualFilterArray);
+      expect(result.length).toEqual(1);
     });
   });
 });
