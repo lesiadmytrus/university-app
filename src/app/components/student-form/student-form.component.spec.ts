@@ -5,8 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Router} from '@angular/router';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StudentService } from '../../services/student.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -64,9 +64,8 @@ const studentsMock: Student[] = [
   }
 ];
 
-const emptyMockStudent = new FormGroup({});
-
 const mockStudentId = 'f6acd450-c8c4-11e9-a32f-2a2ae2dbcce4';
+
 const mockSuccessMessage = {
   message: 'Student succesfully created'
 };
@@ -85,7 +84,7 @@ class MockStudentService {
   }
 
   getById(id: string): Observable<Object> {
-    return of(mockStudent);
+    return of(studentsMock);
   }
 }
 
@@ -170,8 +169,9 @@ describe('StudentFormComponent', () => {
     });
 
     it('should check if "gender" is checked', () => {
+      spyOn(messagesService, 'handlerWarning');
       component.add(mockStudentWithoutGender);
-      expect(component.add).toBeDefined();
+      expect(messagesService.handlerWarning).toHaveBeenCalled();
     });
   });
 
@@ -185,8 +185,9 @@ describe('StudentFormComponent', () => {
 
   describe('GetStudent', () => {
     it('#getStudent should get student by id', () => {
+      spyOn(component.profileForm, 'patchValue').and.returnValue(studentsMock);
       component.getStudent(mockStudentId);
-      expect(component.getStudent).toBeDefined();
+      expect(component.profileForm.patchValue).toHaveBeenCalled();
     });
   });
 });
