@@ -10,6 +10,10 @@ export class AgePipe implements PipeTransform {
     const birthday = Date.parse(value);
     const age = Math.floor((currentDay - birthday) / milisecondsInYear);
 
+    if(age < 0) {
+      return 0;
+    }
+
     return age;
   }
 }
