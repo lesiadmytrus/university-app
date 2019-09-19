@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { BsDatepickerModule, BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { BsDatepickerModule, BsModalService } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
@@ -17,7 +17,6 @@ import { of, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FilterModel } from 'src/app/models/filter.model';
-import { MessagesService } from 'src/app/services/messages.service';
 import { Observable } from 'rxjs';
 
 const studentsMock: Student[] = [
@@ -57,13 +56,17 @@ const eventWithEmptyValue = {
   }
 };
 
+const mockSuccessMessage = {
+  message: 'Student succesfully deleted'
+};
+
 class MockStudentService {
   getAll(query: Student): Observable<Student[]> {
     return of(studentsMock);
   }
 
  delete(id: string): Observable<Object> {
-    return of();
+    return of(mockSuccessMessage);
   }
 }
 
@@ -99,11 +102,13 @@ const mockEmptyActualFilterArray: FilterModel[] = [
 describe('StudentComponent', () => {
   let component: StudentComponent;
   let fixture: ComponentFixture<StudentComponent>;
-  let studentService: MockStudentService;;
+  let studentService: MockStudentService;
   let bsModalService: BsModalService;
-  let mockSortSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'firstName'});
-  let mockFilterSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'lastName', value: event.target.value });
-  let mockEmptyfilterSubject: BehaviorSubject<object> = new BehaviorSubject<object>({field: 'lastName', value: eventWithEmptyValue.target.value });
+  let mockSortSubject: BehaviorSubject<object> = new BehaviorSubject<{field: string}>({field: 'firstName'});
+  let mockFilterSubject: BehaviorSubject<FilterModel> =
+    new BehaviorSubject<{field: string, value: string}>({field: 'lastName', value: event.target.value});
+  let mockEmptyfilterSubject: BehaviorSubject<object> =
+    new BehaviorSubject<object>({field: 'lastName', value: eventWithEmptyValue.target.value});
   let filterInput: HTMLInputElement;
   let router: Router;
 
@@ -130,9 +135,7 @@ describe('StudentComponent', () => {
       providers: [
         { provide: FormGroup, useValue: FormGroup },
         { provide: StudentService, useClass: MockStudentService },
-        { provide: BsModalService, useClass: BsModalService },
-        { provide: BsModalRef, useClass: BsModalRef },
-        { provide: MessagesService, useClass: MessagesService }
+        { provide: BsModalService, useClass: BsModalService }
       ]
     })
       .compileComponents()
@@ -163,12 +166,6 @@ describe('StudentComponent', () => {
       const query = '';
       component.getStudents(query);
       expect(component.isLoading).toEqual(false);
-    });
-  });
-
-  describe('ConfirmDeletation', () => {
-    it('#delete should delete student', () => {
-      component.confirmDeletion();
     });
   });
 
