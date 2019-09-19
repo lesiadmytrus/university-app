@@ -15,6 +15,9 @@ module.exports = function (config) {
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
+    proxies: {
+      '/assets/': 'assets/',
+    },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../coverage/my-app'),
       reports: ['html', 'lcovonly', 'text-summary'],

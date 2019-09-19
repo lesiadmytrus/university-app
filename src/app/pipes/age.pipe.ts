@@ -7,8 +7,12 @@ export class AgePipe implements PipeTransform {
   transform(value: string): number {
     const milisecondsInYear = 31557600000;
     const currentDay = Date.now();
-    const birthDay = Date.parse(value);
-    const age = Math.floor((currentDay - birthDay) / milisecondsInYear);
+    const birthday = Date.parse(value);
+    const age = Math.floor((currentDay - birthday) / milisecondsInYear);
+
+    if (age < 0) {
+      return 0;
+    }
 
     return age;
   }

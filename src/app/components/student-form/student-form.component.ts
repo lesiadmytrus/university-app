@@ -12,7 +12,7 @@ import countries from '../../countries.json';
   templateUrl: './student-form.component.html',
   styleUrls: ['./student-form.component.scss']
 })
-export class StudentFormComponent implements OnInit {
+export class StudentFormComponent {
 
   public isEdit: boolean;
 
@@ -51,9 +51,6 @@ export class StudentFormComponent implements OnInit {
     ).subscribe((event: NavigationEnd) => {
       this.isEdit = event.url.indexOf('edit') !== -1;
     });
-  }
-
-  ngOnInit() {
   }
 
   add(form: FormGroup): void {
