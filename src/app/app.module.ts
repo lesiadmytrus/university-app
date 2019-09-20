@@ -18,6 +18,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegistrationComponent } from './components/registaration/registration.component';
 import { LoginComponent } from './components/login/login.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { LoginComponent } from './components/login/login.component';
     AngularFontAwesomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]
