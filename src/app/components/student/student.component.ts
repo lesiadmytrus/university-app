@@ -26,6 +26,19 @@ export class StudentComponent implements OnInit {
   isLoading = false;
   currentFilterArray: Array<FilterModel> = [];
   headers = studentsTableHeaders.data;
+  rowData: Student[] = [];
+
+  columnDefs = [
+    { headerName: this.headers[0].title, field: this.headers[0].fieldName },
+    { headerName: this.headers[1].title, field: this.headers[1].fieldName },
+    { headerName: this.headers[2].title, field: this.headers[2].fieldName },
+    { headerName: this.headers[3].title, field: this.headers[3].fieldName },
+    { headerName: this.headers[4].title, field: this.headers[4].fieldName },
+    { headerName: this.headers[5].title, field: this.headers[5].fieldName },
+    { headerName: this.headers[6].title, field: this.headers[6].fieldName },
+    { headerName: this.headers[7].title, field: this.headers[7].fieldName },
+    { headerName: this.headers[8].title, field: this.headers[8].fieldName }
+  ];
 
   constructor(
     private studentService: StudentService,
@@ -63,8 +76,12 @@ export class StudentComponent implements OnInit {
     this.isLoading = true;
     this.studentService.getAll(query).subscribe(students => {
       this.isLoading = false;
-      this.students = students;
+      this.rowData = students;
     });
+  }
+
+  onGridReady(params) {
+    params.api.sizeColumnsToFit();
   }
 
   edit(studentId: string): void {
