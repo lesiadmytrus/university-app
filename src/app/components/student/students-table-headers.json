@@ -1,62 +1,62 @@
 {
   "data": [
   	{
-			"title": "№",
-			"fieldName": "number",
+			"headerName": "№",
+			"field": "number",
 			"sortable": false,
 			"filterable": false
     },
     {
-			"title": "First Name",
-			"fieldName": "firstName",
+			"headerName": "First Name",
+			"field": "firstName",
 			"sortable": true, 
 			"filterable": true
     },
     {
-			"title": "Last Name",
-			"fieldName": "lastName",
+			"headerName": "Last Name",
+			"field": "lastName",
 			"sortable": true, 
 			"filterable": true
     },
     {
-			"title": "Age",
-			"fieldName": "age",
+			"headerName": "Age",
+			"field": "age",
 			"sortable": true,
 			"filterable": true
     },
     {
-			"title": "Birthday",
-			"fieldName": "dateOfBirth",
+			"headerName": "Birthday",
+			"field": "dateOfBirth",
 			"sortable": true, 
 			"filterable": true
 		},
     {
-			"title": "Gender",
-			"fieldName": "gender",
+			"headerName": "Gender",
+			"field": "gender",
 			"sortable": true, 
 			"filterable": true
 		},
     {
-			"title": "Email",
-			"fieldName": "email",
+			"headerName": "Email",
+			"field": "email",
 			"sortable": true,
 			"filterable": true
 		},
     {
-			"title": "Phone Number",
-			"fieldName": "phoneNumber",
+			"headerName": "Phone Number",
+			"field": "phoneNumber",
 			"sortable": true,
 			"filterable": true
 		},
     {
-			"title": "Country",
-			"fieldName": "country",
+			"headerName": "Country",
+			"field": "country",
 			"sortable": true,
 			"filterable": true
 		},
     {
-			"title": "Actions",
-			"fieldName": "actions",
+			"headerName": "Actions",
+			"field": "actions",
 			"sortable": false,
 			"filterable": false
     }

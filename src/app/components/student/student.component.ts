@@ -15,6 +15,7 @@ import studentsTableHeaders from '../../components/student/students-table-header
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.scss']
 })
+
 export class StudentComponent implements OnInit {
   students: Student[] = [];
   modalRef: BsModalRef;
@@ -26,6 +27,9 @@ export class StudentComponent implements OnInit {
   isLoading = false;
   currentFilterArray: Array<FilterModel> = [];
   headers = studentsTableHeaders.data;
+  rowData: Student[] = [];
+
+  columnDefs = studentsTableHeaders.data;
 
   constructor(
     private studentService: StudentService,
@@ -55,7 +59,7 @@ export class StudentComponent implements OnInit {
 
       query && this.getStudents(query);
     });
-    
+
     this.getStudents();
   }
 
@@ -63,8 +67,12 @@ export class StudentComponent implements OnInit {
     this.isLoading = true;
     this.studentService.getAll(query).subscribe(students => {
       this.isLoading = false;
-      this.students = students;
+      this.rowData = students;
     });
+  }
+
+  onGridReady(params) {
+    params.api.sizeColumnsToFit();
   }
 
   edit(studentId: string): void {
