@@ -15,6 +15,7 @@ import studentsTableHeaders from '../../components/student/students-table-header
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.scss']
 })
+
 export class StudentComponent implements OnInit {
   students: Student[] = [];
   modalRef: BsModalRef;
@@ -28,17 +29,7 @@ export class StudentComponent implements OnInit {
   headers = studentsTableHeaders.data;
   rowData: Student[] = [];
 
-  columnDefs = [
-    { headerName: this.headers[0].title, field: this.headers[0].fieldName },
-    { headerName: this.headers[1].title, field: this.headers[1].fieldName },
-    { headerName: this.headers[2].title, field: this.headers[2].fieldName },
-    { headerName: this.headers[3].title, field: this.headers[3].fieldName },
-    { headerName: this.headers[4].title, field: this.headers[4].fieldName },
-    { headerName: this.headers[5].title, field: this.headers[5].fieldName },
-    { headerName: this.headers[6].title, field: this.headers[6].fieldName },
-    { headerName: this.headers[7].title, field: this.headers[7].fieldName },
-    { headerName: this.headers[8].title, field: this.headers[8].fieldName }
-  ];
+  columnDefs = studentsTableHeaders.data;
 
   constructor(
     private studentService: StudentService,
@@ -68,7 +59,7 @@ export class StudentComponent implements OnInit {
 
       query && this.getStudents(query);
     });
-    
+
     this.getStudents();
   }
 
