@@ -18,6 +18,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { HomeComponent } from './components/home/home.component';
 import { RegistrationComponent } from './components/registaration/registration.component';
 import { LoginComponent } from './components/login/login.component';
+import { ActionsComponent } from './components/student/actions.component';
 import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AgGridModule } from 'ag-grid-angular';
     SpinnerComponent,
     HomeComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    ActionsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { AgGridModule } from 'ag-grid-angular';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([ActionsComponent])
   ],
   providers: [],
   bootstrap: [AppComponent]
