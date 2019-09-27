@@ -1,11 +1,11 @@
-  <div class="i-container">
-    <i
-      *ngFor="let action of actions"
-      (click)="handleAction(action)"
-      [ngClass]="action.name"
-    >
-    </i>
-  </div>
+<div class="i-container">
+  <i
+    *ngFor="let action of actions"
+    (click)="handleAction(action)"
+    [ngClass]="action.name"
+  >
+  </i>
+</div>
 
 <ng-template #template>
   <div class="modal-body p-4 text-center">
@@ -20,7 +20,7 @@
       type="button"
       class="btn btn-secondary"
       (click)="dismissModal()"
-      >No
+    >No
     </button>
   </div>
 </ng-template>
