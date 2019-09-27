@@ -1,7 +1,8 @@
-<div class="i-container">
+<div class="icon-container">
   <i
     *ngFor="let action of actions"
     (click)="handleAction(action)"
+    class="fa btn"
     [ngClass]="action.name"
   >
   </i>

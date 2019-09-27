@@ -1,5 +1,5 @@
 export class Action {
-  public name: string;
+  public className: string;
   public type: string;
   public params?: any;
 }

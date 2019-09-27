@@ -20,13 +20,21 @@ export class ActionsComponent {
     this.params = params;
 
     this.actions = [
-      { name: 'fa fa-pencil btn btn-outline-primary', type: 'edit', params: {
-        id: this.params.data._id
-      }},
-      { name: 'fa fa-trash-o btn btn-outline-danger', type: 'openConfirmationModal', params: {
-        template: this.templateRef,
-        id: this.params.data._id
-      }}
+      {
+        className: 'fa-pencil btn-outline-primary',
+        type: 'edit',
+        params: {
+          id: this.params.data._id
+        }
+      },
+      {
+        className: 'fa-trash-o btn-outline-danger',
+        type: 'openConfirmationModal',
+        params: {
+          template: this.templateRef,
+          id: this.params.data._id
+        }
+      }
     ];
   }
 
