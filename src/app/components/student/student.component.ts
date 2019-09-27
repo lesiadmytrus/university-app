@@ -9,7 +9,9 @@ import studentsTableHeaders from '../../components/student/students-table-header
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.scss']
 })
+
 export class StudentComponent implements OnInit {
+<<<<<<< HEAD
   public isLoading = false;
   public headers = studentsTableHeaders;
   public rowData: Student[] = [];
@@ -18,6 +20,21 @@ export class StudentComponent implements OnInit {
   public defaultColDef;
   public frameworkComponents;
   public columnDefs = this.headers;
+=======
+  students: Student[] = [];
+  modalRef: BsModalRef;
+  deleteStudentId: string;
+  sortOrder = '';
+  clickedColumn: string;
+  filterSubject = new BehaviorSubject<{field: string, value: string}>({field: '', value: ''});
+  sortSubject = new BehaviorSubject<{field: string}>({field: ''});
+  isLoading = false;
+  currentFilterArray: Array<FilterModel> = [];
+  headers = studentsTableHeaders.data;
+  rowData: Student[] = [];
+
+  columnDefs = studentsTableHeaders.data;
+>>>>>>> master
 
   constructor(
     private studentService: StudentService
@@ -36,6 +53,11 @@ export class StudentComponent implements OnInit {
     this.studentService.subject.subscribe(students => {
       this.rowData = students;
     });
+<<<<<<< HEAD
+=======
+
+    this.getStudents();
+>>>>>>> master
   }
 
   getStudents(query: string = ''): void {
