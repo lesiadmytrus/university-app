@@ -6,20 +6,20 @@
 	{
 		"headerName": "First Name",
 		"field": "firstName",
-		"sortable": true, 
+		"sortable": true,
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			"suppressFilterButton": true 
+			"suppressFilterButton": true
 		},
 		"suppressMenu": true
 	},
 	{
 		"headerName": "Last Name",
 		"field": "lastName",
-		"sortable": true, 
+		"sortable": true,
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			"suppressFilterButton": true 
+			"suppressFilterButton": true
 		},
 		"suppressMenu": true
 	},
@@ -29,17 +29,17 @@
 		"sortable": true,
 		"filter": "agNumberColumnFilter",
 		"floatingFilterComponentParams": {
-			"suppressFilterButton": true 
+			"suppressFilterButton": true
 		},
 		"suppressMenu": true
 	},
 	{
 		"headerName": "Birthday",
 		"field": "dateOfBirth",
-		"sortable": true, 
+		"sortable": true,
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			"suppressFilterButton": true 
+			"suppressFilterButton": true
 		},
 		"suppressMenu": true
 	},
