@@ -10,7 +10,6 @@ import studentsTableHeaders from '../../components/student/students-table-header
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit {
-  public students: Student[] = [];
   public isLoading = false;
   public headers = studentsTableHeaders;
   public rowData: Student[] = [];
