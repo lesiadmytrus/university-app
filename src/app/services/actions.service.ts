@@ -11,7 +11,6 @@ import { StudentService } from './student.service';
 export class ActionsService {
   deleteStudentId: string;
   modalRef: BsModalRef;
-  public isLoading = false;
 
   constructor(
     private router: Router,
@@ -30,11 +29,10 @@ export class ActionsService {
   }
 
   confirmDelete(): void {
-    this.isLoading = true;
     this.studentService.delete(this.deleteStudentId).subscribe(res => {
       this.messagesService.handlerSuccess(res['message']);
+      this.studentService.getAll('').subscribe(() => {});
       this.dismissModal();
-      this.isLoading = false;
     }, error => {
       this.messagesService.handlerError(error.error);
     });
