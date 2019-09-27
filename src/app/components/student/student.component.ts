@@ -32,7 +32,7 @@ export class StudentComponent implements OnInit {
     };
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.studentService.subject.subscribe(students => {
       this.rowData = students;
     });
