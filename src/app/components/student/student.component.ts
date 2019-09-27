@@ -11,6 +11,7 @@ import studentsTableHeaders from '../../components/student/students-table-header
 })
 
 export class StudentComponent implements OnInit {
+  public students: Student[] = [];
   public isLoading = false;
   public headers = studentsTableHeaders;
   public rowData: Student[] = [];
@@ -31,12 +32,12 @@ export class StudentComponent implements OnInit {
     };
   }
 
-  ngOnInit() {
-    this.getStudents();
-
+  ngOnInit() { 
     this.studentService.subject.subscribe(students => {
       this.rowData = students;
     });
+
+    this.getStudents();
   }
 
   getStudents(query: string = ''): void {
@@ -47,9 +48,9 @@ export class StudentComponent implements OnInit {
   }
 
   onGridReady(params) {
-    params.api.sizeColumnsToFit();
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    params.api.sizeColumnsToFit();
     this.gridColumnApi.autoSizeColumns();
   }
 }
