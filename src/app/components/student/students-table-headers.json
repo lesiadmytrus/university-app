@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [
 	{
 		"headerName": "№",
@@ -10,8 +9,8 @@
 		"sortable": true, 
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true 
-			},
+			"suppressFilterButton": true 
+		},
 		"suppressMenu": true
 	},
 	{
@@ -20,8 +19,8 @@
 		"sortable": true, 
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true 
-			},
+			"suppressFilterButton": true 
+		},
 		"suppressMenu": true
 	},
 	{
@@ -30,8 +29,8 @@
 		"sortable": true,
 		"filter": "agNumberColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true 
-			},
+			"suppressFilterButton": true 
+		},
 		"suppressMenu": true
 	},
 	{
@@ -40,8 +39,8 @@
 		"sortable": true, 
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true 
-			},
+			"suppressFilterButton": true 
+		},
 		"suppressMenu": true
 	},
 	{
@@ -50,8 +49,8 @@
 		"sortable": true,
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true
-			},
+			"suppressFilterButton": true
+		},
 		"suppressMenu": true
 	},
 	{
@@ -60,8 +59,8 @@
 		"sortable": true,
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true
-			},
+			"suppressFilterButton": true
+		},
 		"suppressMenu": true
 	},
 	{
@@ -70,8 +69,8 @@
 		"sortable": true,
 		"filter": "agNumberColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true
-			},
+			"suppressFilterButton": true
+		},
 		"suppressMenu": true
 	},
 	{
@@ -80,8 +79,8 @@
 		"sortable": true,
 		"filter": "agTextColumnFilter",
 		"floatingFilterComponentParams": {
-			 "suppressFilterButton": true
-			},
+			"suppressFilterButton": true
+		},
 		"suppressMenu": true
 	},
 	{
@@ -92,69 +91,3 @@
 		"cellRenderer": "actionItem"
 	}
 ]
-=======
-{
-  "data": [
-  	{
-			"headerName": "№",
-			"field": "number",
-			"sortable": false,
-			"filterable": false
-    },
-    {
-			"headerName": "First Name",
-			"field": "firstName",
-			"sortable": true, 
-			"filterable": true
-    },
-    {
-			"headerName": "Last Name",
-			"field": "lastName",
-			"sortable": true, 
-			"filterable": true
-    },
-    {
-			"headerName": "Age",
-			"field": "age",
-			"sortable": true,
-			"filterable": true
-    },
-    {
-			"headerName": "Birthday",
-			"field": "dateOfBirth",
-			"sortable": true, 
-			"filterable": true
-		},
-    {
-			"headerName": "Gender",
-			"field": "gender",
-			"sortable": true, 
-			"filterable": true
-		},
-    {
-			"headerName": "Email",
-			"field": "email",
-			"sortable": true,
-			"filterable": true
-		},
-    {
-			"headerName": "Phone Number",
-			"field": "phoneNumber",
-			"sortable": true,
-			"filterable": true
-		},
-    {
-			"headerName": "Country",
-			"field": "country",
-			"sortable": true,
-			"filterable": true
-		},
-    {
-			"headerName": "Actions",
-			"field": "actions",
-			"sortable": false,
-			"filterable": false
-    }
-  ]
-}
->>>>>>> master
