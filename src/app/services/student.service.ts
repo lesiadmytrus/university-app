@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Student } from '../models/student.model';
+import { tap, map } from 'rxjs/operators';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class StudentService {
   private readonly apiURL = 'http://localhost:3000/api/students';
+  public subject = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 
@@ -14,7 +18,12 @@ export class StudentService {
   }
 
   public getAll(query: string): Observable<Student[]> {
-    return this.http.get<Student[]>(`${this.apiURL}${query}`);
+    return this.http.get<Student[]>(`${this.apiURL}${query}`).pipe(
+      tap(students => {
+        this.subject.next(students);
+      }),
+      map(students => students)
+    );
   }
 
   public getById(id: string): Observable<Student> {

@@ -1,67 +1,10 @@
-$color-light-silver: #e6e6e6;
-$color-black: #000;
-
 h2 {
   text-align: center;
   margin: 1rem 0;
 }
 
-.students-table {
-  width: 100%;
-
-  th {
-    padding: .6rem 0;
-    background-color: $color-light-silver;
-    color: $color-black;
-    text-align: center;
-  }
-
-  td,
-  th {
-    border: 1px solid #ddd;
-  }
-
-  tr:nth-last-child(2n) {
-    background-color: #f9f9f9;
-  }
-
-  td {
-    padding: .5rem;
-  }
-
-  .btn-container {
-    display: flex;
-    justify-content: space-evenly;
-  }
-
-  .numeration-list {
-    text-align: center;
-    background-color: $color-light-silver;
-    color: $color-black;
-    font-weight: bold;
-  }
-  
-  .sortable {
-    cursor: pointer;
-  }
-
-  .filter-container {
-    position: relative;
-    margin: 0 10px;
-
-     &__input {
-      border: none;
-     }
-
-     &__icon {
-      position: absolute;
-      right: 5px;
-      top: 6px;
-    }
-  }
-}
-
 ag-grid-angular {
   width: 100%;
-  height: 500px;
+  height: 30rem;
+  padding: 1rem;
 }

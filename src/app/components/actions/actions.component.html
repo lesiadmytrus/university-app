@@ -1,0 +1,27 @@
+<div class="icon-container">
+  <i
+    *ngFor="let action of actions"
+    (click)="handleAction(action)"
+    class="fa btn"
+    [ngClass]="action.className"
+  >
+  </i>
+</div>
+
+<ng-template #template>
+  <div class="modal-body p-4 text-center">
+    <p>Are you sure you want to delete this student?</p>
+    <button
+      type="button"
+      class="btn btn-default"
+      (click)="confirmDelete()"
+    >Yes
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      (click)="dismissModal()"
+    >No
+    </button>
+  </div>
+</ng-template>

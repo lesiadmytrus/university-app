@@ -1,64 +1,93 @@
-{
-  "data": [
-  	{
-			"headerName": "№",
-			"field": "number",
-			"sortable": false,
-			"filterable": false
-    },
-    {
-			"headerName": "First Name",
-			"field": "firstName",
-			"sortable": true, 
-			"filterable": true
-    },
-    {
-			"headerName": "Last Name",
-			"field": "lastName",
-			"sortable": true, 
-			"filterable": true
-    },
-    {
-			"headerName": "Age",
-			"field": "age",
-			"sortable": true,
-			"filterable": true
-    },
-    {
-			"headerName": "Birthday",
-			"field": "dateOfBirth",
-			"sortable": true, 
-			"filterable": true
+[
+	{
+		"headerName": "№",
+		"field": "number"
+	},
+	{
+		"headerName": "First Name",
+		"field": "firstName",
+		"sortable": true,
+		"filter": "agTextColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
 		},
-    {
-			"headerName": "Gender",
-			"field": "gender",
-			"sortable": true, 
-			"filterable": true
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Last Name",
+		"field": "lastName",
+		"sortable": true,
+		"filter": "agTextColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
 		},
-    {
-			"headerName": "Email",
-			"field": "email",
-			"sortable": true,
-			"filterable": true
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Age",
+		"field": "age",
+		"sortable": true,
+		"filter": "agNumberColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
 		},
-    {
-			"headerName": "Phone Number",
-			"field": "phoneNumber",
-			"sortable": true,
-			"filterable": true
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Birthday",
+		"field": "dateOfBirth",
+		"sortable": true,
+		"filter": "agTextColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
 		},
-    {
-			"headerName": "Country",
-			"field": "country",
-			"sortable": true,
-			"filterable": true
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Gender",
+		"field": "gender",
+		"sortable": true,
+		"filter": "agTextColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
 		},
-    {
-			"headerName": "Actions",
-			"field": "actions",
-			"sortable": false,
-			"filterable": false
-    }
-  ]
-}
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Email",
+		"field": "email",
+		"sortable": true,
+		"filter": "agTextColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
+		},
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Phone Number",
+		"field": "phoneNumber",
+		"sortable": true,
+		"filter": "agNumberColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
+		},
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Country",
+		"field": "country",
+		"sortable": true,
+		"filter": "agTextColumnFilter",
+		"floatingFilterComponentParams": {
+			"suppressFilterButton": true
+		},
+		"suppressMenu": true
+	},
+	{
+		"headerName": "Actions",
+		"field": "actions",
+		"sortable": false,
+		"filter": false,
+		"cellRenderer": "actionItem"
+	}
+]
